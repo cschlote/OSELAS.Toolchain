@@ -1,0 +1,7 @@
+platform-*/
+inst/*
+dist/*
+p
+logfile
+*~
+*.old
