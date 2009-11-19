@@ -5,7 +5,7 @@
 PTXCONF__ptxconfig_MAGIC__=y
 PTXCONF_BUILD_TOOLCHAIN=y
 PTXCONF_NO_PLATFORM=y
-PTXCONF_PROJECT="OSELAS.Toolchain-trunk"
+PTXCONF_PROJECT="OSELAS.Toolchain-1.99.svn"
 
 #
 # ----------------------------------
@@ -73,6 +73,7 @@ PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=hard --with-fpu=fpa --with-arch=arm
 PTXCONF_CROSS_GCC_LANG_C=y
 PTXCONF_CROSS_GCC_LANG_CXX=y
 # PTXCONF_CROSS_GCC_LANG_FORTRAN is not set
+# PTXCONF_CROSS_GCC_LANG_ADA is not set
 # PTXCONF_CROSS_GCC_LANG_JAVA is not set
 PTXCONF_CROSS_GCC_ENABLE_CXA_ATEXIT=y
 PTXCONF_CROSS_GCC_CONFIG_CXA_ATEXIT="--enable-__cxa_atexit"
