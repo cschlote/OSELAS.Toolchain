@@ -34,6 +34,12 @@ comment "----------------------------------"
 
 source "workspace/rules/libc.in"
 
+if LIBC_EGLIBC
+source "workspace/rules/eglibc.in"
+source "workspace/rules/eglibc-ports.in"
+source "workspace/rules/eglibc-linuxthreads.in"
+endif
+
 if LIBC_GLIBC
 source "workspace/rules/glibc.in"
 source "workspace/rules/glibc-ports.in"

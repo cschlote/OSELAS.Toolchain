@@ -47,6 +47,9 @@ fixup()
 	    gcc*)
 		PTXCONF_CROSS_GCC_VERSION="${part##gcc-}"
 		;;
+	    eglibc*)
+		PTXCONF_EGLIBC_VERSION="${part##eglibc-}"
+		;;
 	    glibc*)
 		PTXCONF_GLIBC_VERSION="${part##glibc-}"
 		;;
@@ -222,18 +225,24 @@ fixup()
 	    ;;
     esac
 
+	PTXCONF_EGLIBC_CONFIG_EXTRA="${PTXCONF_GLIBC_CONFIG_EXTRA}"
+	
     #
     # PTXCONF_GLIBC_ENABLE_KERNEL
+    # PTXCONF_EGLIBC_ENABLE_KERNEL
     #
     case "${PTXCONF_KERNEL_HEADERS_VERSION}" in
 	2.6.18)
 	    PTXCONF_GLIBC_ENABLE_KERNEL="2.6.16"
+	    PTXCONF_EGLIBC_ENABLE_KERNEL="2.6.16"
 	    ;;
  	2.6.2[6789])
 	    PTXCONF_GLIBC_ENABLE_KERNEL="2.6.23"
+	    PTXCONF_EGLIBC_ENABLE_KERNEL="2.6.23"
 	    ;;
  	2.6.3[12345])
 	    PTXCONF_GLIBC_ENABLE_KERNEL="2.6.31"
+	    PTXCONF_EGLIBC_ENABLE_KERNEL="2.6.31"
 	    ;;
 	"")
 	    ;;
