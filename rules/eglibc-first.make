@@ -89,7 +89,7 @@ $(STATEDIR)/eglibc-first.install:
 	@$(call targetinfo)
 	cd $(EGLIBC_FIRST_BUILDDIR) && \
 		$(EGLIBC_FIRST_PATH) $(MAKE) $(EGLIBC_FIRST_MAKEVARS) \
-		install_root=$(SYSROOT) install-lib-all install-headers
+		install_root=$(SYSROOT) install-lib install-headers
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
