@@ -7,10 +7,10 @@ config EGLIBC_PORTS_VERSION
 	string
 	default "${PTXCONF_EGLIBC_VERSION}"
 
-config EGLIBC_PORTS_TIMESTAMP
+config EGLIBC_PORTS_SVNREV
 	depends on EGLIBC_PORTS
 	string
-	default "${PTXCONF_EGLIBC_TIMESTAMP}"
+	default "${PTXCONF_EGLIBC_SVNREV}"
 
 config EGLIBC_PORTS_SERIES
 	depends on EGLIBC_PORTS

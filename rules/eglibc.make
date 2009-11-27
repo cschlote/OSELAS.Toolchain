@@ -21,29 +21,44 @@ PACKAGES-$(PTXCONF_EGLIBC) += eglibc
 ifneq ($(PTXCONF_EGLIBC_VERSION),"")
 EGLIBC_VERSION	:= -$(call remove_quotes,$(PTXCONF_EGLIBC_VERSION))
 endif
-ifneq ($(PTXCONF_EGLIBC_TIMESTAMP),"")
-EGLIBC_TIMESTAMP	:= -$(call remove_quotes,$(PTXCONF_EGLIBC_TIMESTAMP))
+ifneq ($(PTXCONF_EGLIBC_SVNREV),"")
+EGLIBC_SVNREV	:= -r $(call remove_quotes,$(PTXCONF_EGLIBC_SVNREV))
 endif
 
-EGLIBC		:= eglibc$(EGLIBC_VERSION)$(EGLIBC_TIMESTAMP)
-EGLIBC_SUFFIX	:= tar.bz2
+EGLIBC			:= eglibc$(EGLIBC_VERSION)
+EGLIBC_SUFFIX	:= svn
 EGLIBC_SOURCE	:= $(SRCDIR)/$(EGLIBC).$(EGLIBC_SUFFIX)
-EGLIBC_DIR	:= $(BUILDDIR_DEBUG)/$(EGLIBC)
+EGLIBC_SOURCE_B	:= $(SRCDIR)/$(EGLIBC)
+EGLIBC_DIR		:= $(BUILDDIR_DEBUG)/$(EGLIBC)
 EGLIBC_BUILDDIR	:= $(BUILDDIR)/$(EGLIBC)-build
 
-EGLIBC_URL	:= \
-	$(PTXCONF_SETUP_GNUMIRROR)/eglibc/$(EGLIBC).$(EGLIBC_SUFFIX) \
-	ftp://sourceware.org/pub/eglibc/snapshots/$(EGLIBC).$(EGLIBC_SUFFIX) \
-	http://www.pengutronix.de/software/ptxdist/temporary-src/eglibc/$(EGLIBC).$(EGLIBC_SUFFIX) \
-	http://kplanas01/cgi-bin/gitweb.cgi?p=eglibc/.git;a=snapshot;h=b1f95f0fd835b04c6263256b02b1a71a2b1d4ab4;sf=tgz
+EGLIBC_URL	:= svn://svn.eglibc.org/branches/eglibc$(subst .,_,$(EGLIBC_VERSION))
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-$(EGLIBC_SOURCE):
+$(EGLIBC_SOURCE): | $(EGLIBC_SOURCE_B)
 	@$(call targetinfo)
-	@$(call get, EGLIBC)
+	# @$(call get, EGLIBC)
+	# See http://www.eglibc.org/archives/issues/msg00064.html
+	if [ -d $(EGLIBC_SOURCE_B) ]; then \
+	   rev1=`svnversion $(EGLIBC_SOURCE_B)`; \
+	   rev2=`cat $@`; \
+	   if test "$$rev1" != "$$rev2"; then \
+	      echo $$rev1 > $@; \
+	      echo Touched $@ because of changes; \
+	   fi; \
+	else \
+	   rm  $@; \
+	fi
+
+$(EGLIBC_SOURCE_B):
+	if [ -d $(EGLIBC_SOURCE_B) ]; then \
+	   svn update $(EGLIBC_SVNREV) $(EGLIBC_SOURCE_B);\
+	else \
+	   svn co $(EGLIBC_SVNREV) $(EGLIBC_PORTS_URL)/libc $(EGLIBC_SOURCE_B); \
+	fi
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -52,7 +67,9 @@ $(EGLIBC_SOURCE):
 $(STATEDIR)/eglibc.extract:
 	@$(call targetinfo)
 	@$(call clean, $(EGLIBC_DIR))
-	@$(call extract, EGLIBC, $(BUILDDIR_DEBUG))
+	# @$(call extract, EGLIBC, $(BUILDDIR_DEBUG))
+	# See http://www.eglibc.org/archives/issues/msg00064.html
+	svn export $(EGLIBC_SOURCE_B) $(EGLIBC_DIR)
 	@$(call patchin, EGLIBC, $(EGLIBC_DIR))
 
 ifdef PTXCONF_EGLIBC_LINUXTHREADS

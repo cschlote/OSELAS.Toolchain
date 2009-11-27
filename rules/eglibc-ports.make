@@ -24,29 +24,44 @@ else
 EGLIBC_PORTS_VERSION	:= -$(call remove_quotes,$(PTXCONF_EGLIBC_VERSION))
 endif
 
-ifneq ($(call remove_quotes $(PTXCONF_EGLIBC_PORTS_TIMESTAMP)),)
-EGLIBC_PORTS_TIMESTAMP	:= -$(call remove_quotes,$(PTXCONF_EGLIBC_PORTS_TIMESTAMP))
-EGLIBC_PORTS		:= eglibc$(EGLIBC_PORTS_VERSION)-ports$(EGLIBC_PORTS_TIMESTAMP)
-else
-EGLIBC_PORTS		:= eglibc-ports$(EGLIBC_PORTS_VERSION)
+ifneq ($(call remove_quotes $(PTXCONF_EGLIBC_PORTS_SVNREV)),)
+EGLIBC_PORTS_SVNREV	:= -r $(call remove_quotes,$(PTXCONF_EGLIBC_PORTS_SVNREV))
 endif
+EGLIBC_PORTS		:= eglibc-ports$(EGLIBC_PORTS_VERSION)
 
-EGLIBC_PORTS_SUFFIX	:= tar.bz2
+EGLIBC_PORTS_SUFFIX	:= svn
 EGLIBC_PORTS_SOURCE	:= $(SRCDIR)/$(EGLIBC_PORTS).$(EGLIBC_PORTS_SUFFIX)
-EGLIBC_PORTS_DIR		:= $(BUILDDIR)/$(EGLIBC_PORTS)
+EGLIBC_PORTS_SOURCE_B := $(SRCDIR)/$(EGLIBC_PORTS)
+EGLIBC_PORTS_DIR	:= $(BUILDDIR)/$(EGLIBC_PORTS)
 
-EGLIBC_PORTS_URL		:= \
-	$(PTXCONF_SETUP_GNUMIRROR)/eglibc/$(EGLIBC_PORTS).$(EGLIBC_PORTS_SUFFIX) \
-	ftp://sources.redhat.com/pub/eglibc/snapshots/$(EGLIBC_PORTS).$(EGLIBC_PORTS_SUFFIX) \
-	http://www.pengutronix.de/software/ptxdist/temporary-src/eglibc/$(EGLIBC_PORTS).$(EGLIBC_PORTS_SUFFIX)
+EGLIBC_PORTS_URL	:= $(EGLIBC_URL)
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-$(EGLIBC_PORTS_SOURCE):
+$(EGLIBC_PORTS_SOURCE): | $(EGLIBC_PORTS_SOURCE_B)
 	@$(call targetinfo)
-	@$(call get, EGLIBC_PORTS)
+	@#$(call get, EGLIBC_PORTS)
+	# See http://www.eglibc.org/archives/issues/msg00064.html
+	if [ -d $(EGLIBC_PORTS_SOURCE_B) ]; then \
+	   rev1=`svnversion $(EGLIBC_PORTS_SOURCE_B)`; \
+	   rev2=`cat $@`; \
+	   if test "$$rev1" != "$$rev2"; then \
+	      echo $$rev1 > $@; \
+	      echo Touched $@ because of changes; \
+	   fi; \
+	else \
+	   rm $@; \
+	fi
+
+$(EGLIBC_PORTS_SOURCE_B): 
+	if [ -d $(EGLIBC_PORTS_SOURCE_B) ]; then \
+	   svn update $(EGLIBC_PORTS_SVNREV) $(EGLIBC_PORTS_SOURCE_B);\
+	else \
+	   svn co $(EGLIBC_PORTS_SVNREV) $(EGLIBC_PORTS_URL)/ports $(EGLIBC_PORTS_SOURCE_B); \
+	fi
+
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -59,7 +74,9 @@ endif
 $(STATEDIR)/eglibc-ports.extract:
 	@$(call targetinfo)
 	@$(call clean, $(EGLIBC_PORTS_DIR))
-	@$(call extract, EGLIBC_PORTS, $(BUILDDIR))
+	# @$(call extract, EGLIBC_PORTS, $(BUILDDIR))
+	# See http://www.eglibc.org/archives/issues/msg00064.html
+	svn export $(EGLIBC_PORTS_SOURCE_B) $(EGLIBC_PORTS_DIR)
 	@$(call patchin, EGLIBC_PORTS, $(EGLIBC_PORTS_DIR))
 	@$(call touch)
 
