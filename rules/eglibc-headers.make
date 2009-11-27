@@ -115,7 +115,7 @@ $(STATEDIR)/eglibc-headers.install:
 	@$(call targetinfo)
 	cd $(EGLIBC_HEADERS_DIR) && \
 		$(EGLIBC_HEADERS_PATH) $(EGLIBC_HEADERS_ENV) \
-		$(MAKE) cross_compiling=yes install_root=$(SYSROOT) install-headers
+		$(MAKE) cross_compiling=yes install-bootstrap-headers=yes install_root=$(SYSROOT) install-headers
 
 	mkdir -p $(SYSROOT)/usr/include/gnu
 	touch $(SYSROOT)/usr/include/gnu/stubs.h
