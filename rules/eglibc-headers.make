@@ -2,6 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2006 by Robert Schwebel
+#       2009 by Carsten Schlote
 #
 # See CREDITS for details about who has contributed to this project.
 #

@@ -2,6 +2,7 @@
 # $Id: template 6001 2006-08-12 10:15:00Z mkl $
 #
 # Copyright (C) 2006 by Marc Kleine-Budde <mkl@pengutronix.de>
+#       2009 by Carsten Schlote
 #
 # See CREDITS for details about who has contributed to this project.
 #

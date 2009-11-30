@@ -3,6 +3,7 @@
 #
 # Copyright (C) 2006 by Robert Schwebel
 #		2007, 2008 by Marc Kleine-Budde
+#       2009 by Carsten Schlote
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -89,7 +90,8 @@ $(STATEDIR)/eglibc-first.install:
 	@$(call targetinfo)
 	cd $(EGLIBC_FIRST_BUILDDIR) && \
 		$(EGLIBC_FIRST_PATH) $(MAKE) $(EGLIBC_FIRST_MAKEVARS) \
-		install_root=$(SYSROOT) install-lib install-headers
+		install_root=$(SYSROOT) install-bootstrap-headers=yes \
+		install-lib-all install-headers  
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
