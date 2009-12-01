@@ -107,6 +107,9 @@ $(STATEDIR)/eglibc-linuxthreads.targetinstall:
 # ----------------------------------------------------------------------------
 
 eglibc-linuxthreads_clean:
+  ifeq ($(call remove_quotes $(PTXCONF_EGLIBC_LINUXTHREADS_SVNREV)),HEAD)
+	rm -rf $(EGLIBC_LINUXTHREADS_SOURCE)
+  endif
 	rm -rf $(STATEDIR)/eglibc-linuxthreads.*
 	rm -rf $(EGLIBC_LINUXTHREADS_DIR)
 

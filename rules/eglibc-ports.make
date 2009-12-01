@@ -118,6 +118,9 @@ $(STATEDIR)/eglibc-ports.targetinstall:
 # ----------------------------------------------------------------------------
 
 eglibc-ports_clean:
+  ifeq ($(call remove_quotes $(PTXCONF_EGLIBC_PORTS_SVNREV)),HEAD)
+	rm -rf $(EGLIBC_PORTS_SOURCE)
+  endif
 	rm -rf $(STATEDIR)/eglibc-ports.*
 	rm -rf $(EGLIBC_PORTS_DIR)
 

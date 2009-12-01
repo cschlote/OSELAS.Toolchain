@@ -137,8 +137,7 @@ EGLIBC_AUTOCONF := \
 	--enable-debug \
 	--enable-profile \
 	--enable-shared \
-
-#FIXME:build error?	--enable-static-nss
+	--enable-static-nss
 
 $(STATEDIR)/eglibc.prepare:
 	@$(call targetinfo)
@@ -170,12 +169,14 @@ $(STATEDIR)/eglibc.install:
 #
 # Fix a bug when linking statically
 # see: http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=76451
+# see: http://www.sourceware.org/bugzilla/show_bug.cgi?id=631
 #
 	mv -- "$(SYSROOT)/usr/lib/libc.a" "$(SYSROOT)/usr/lib/libc_ns.a"
 	echo '/* GNU ld script'											>  "$(SYSROOT)/usr/lib/libc.a"
 	echo '   Use the static library, but some functions are in other strange'				>> "$(SYSROOT)/usr/lib/libc.a"
 	echo '   libraries :-( So try them secondarily. */'							>> "$(SYSROOT)/usr/lib/libc.a"
-	echo 'GROUP ( /usr/lib/libc_ns.a /usr/lib/libnss_files.a /usr/lib/libnss_dns.a /usr/lib/libresolv.a )'	>> "$(SYSROOT)/usr/lib/libc.a"
+	echo 'GROUP ( /usr/lib/libc_ns.a /usr/lib/libnss_files_pic.a /usr/lib/libnss_dns_pic.a /usr/lib/libresolv.a ) )'	>> "$(SYSROOT)/usr/lib/libc.a"
+	@#echo 'GROUP ( /usr/lib/libc_ns.a /usr/lib/libnss_files.a /usr/lib/libnss_dns.a /usr/lib/libresolv.a )'	>> "$(SYSROOT)/usr/lib/libc.a"
 
 	@$(call touch)
 
@@ -192,6 +193,9 @@ $(STATEDIR)/eglibc.targetinstall:
 # ----------------------------------------------------------------------------
 
 eglibc_clean:
+  ifeq ($(call remove_quotes $(PTXCONF_EGLIBC_SVNREV)),HEAD)
+	rm -rf $(EGLIBC_SOURCE)
+  endif
 	rm -rf $(STATEDIR)/eglibc.*
 	rm -rf $(EGLIBC_DIR)
 
