@@ -175,7 +175,7 @@ $(STATEDIR)/eglibc.install:
 	echo '/* GNU ld script'											>  "$(SYSROOT)/usr/lib/libc.a"
 	echo '   Use the static library, but some functions are in other strange'				>> "$(SYSROOT)/usr/lib/libc.a"
 	echo '   libraries :-( So try them secondarily. */'							>> "$(SYSROOT)/usr/lib/libc.a"
-	echo 'GROUP ( /usr/lib/libc_ns.a /usr/lib/libnss_files_pic.a /usr/lib/libnss_dns_pic.a /usr/lib/libresolv.a ) )'	>> "$(SYSROOT)/usr/lib/libc.a"
+	echo 'GROUP ( /usr/lib/libc_ns.a /usr/lib/libnss_files_pic.a /usr/lib/libnss_dns_pic.a /usr/lib/libresolv.a )'	>> "$(SYSROOT)/usr/lib/libc.a"
 	@#echo 'GROUP ( /usr/lib/libc_ns.a /usr/lib/libnss_files.a /usr/lib/libnss_dns.a /usr/lib/libresolv.a )'	>> "$(SYSROOT)/usr/lib/libc.a"
 
 	@$(call touch)
