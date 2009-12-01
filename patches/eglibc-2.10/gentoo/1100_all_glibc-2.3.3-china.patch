@@ -2,10 +2,10 @@
  localedata/locales/zh_TW |    6 +++---
  1 file changed, 3 insertions(+), 3 deletions(-)
 
-Index: glibc-2.9/localedata/locales/zh_TW
+Index: eglibc-2.10/localedata/locales/zh_TW
 ===================================================================
---- glibc-2.9.orig/localedata/locales/zh_TW
-+++ glibc-2.9/localedata/locales/zh_TW
+--- eglibc-2.10.orig/localedata/locales/zh_TW	2009-12-01 13:40:19.000000000 +0100
++++ eglibc-2.10/localedata/locales/zh_TW	2009-12-01 13:40:30.000000000 +0100
 @@ -1,7 +1,7 @@
  comment_char %
  escape_char /
@@ -15,7 +15,7 @@ Index: glibc-2.9/localedata/locales/zh_TW
  % charmap: BIG5-CP950
  %
  % Original Author:
-@@ -17,7 +17,7 @@ escape_char /
+@@ -17,7 +17,7 @@
  % Reference:	http://wwwold.dkuug.dk/JTC1/SC22/WG20/docs/n690.pdf
  
  LC_IDENTIFICATION
@@ -24,7 +24,7 @@ Index: glibc-2.9/localedata/locales/zh_TW
  source     ""
  address    ""
  contact    ""
-@@ -25,7 +25,7 @@ email      "bug-glibc-locales@gnu.org"
+@@ -25,7 +25,7 @@
  tel        ""
  fax        ""
  language   "Chinese"

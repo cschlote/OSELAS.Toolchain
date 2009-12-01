@@ -10,11 +10,11 @@
  elf/do-lookup.h |    6 ++++++
  1 file changed, 6 insertions(+)
 
-Index: glibc-2.9/elf/do-lookup.h
+Index: eglibc-2.10/elf/do-lookup.h
 ===================================================================
---- glibc-2.9.orig/elf/do-lookup.h
-+++ glibc-2.9/elf/do-lookup.h
-@@ -246,6 +246,12 @@ do_lookup_x (const char *undef_name, uin
+--- eglibc-2.10.orig/elf/do-lookup.h	2009-12-01 13:40:18.000000000 +0100
++++ eglibc-2.10/elf/do-lookup.h	2009-12-01 13:40:33.000000000 +0100
+@@ -248,6 +248,12 @@
  		}
  	      /* FALLTHROUGH */
  	    case STB_GLOBAL:

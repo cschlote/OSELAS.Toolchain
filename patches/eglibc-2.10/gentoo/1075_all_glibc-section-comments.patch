@@ -7,11 +7,11 @@ it does the right thing
  include/libc-symbols.h |    6 +++---
  1 file changed, 3 insertions(+), 3 deletions(-)
 
-Index: glibc-2.9/include/libc-symbols.h
+Index: eglibc-2.10/include/libc-symbols.h
 ===================================================================
---- glibc-2.9.orig/include/libc-symbols.h
-+++ glibc-2.9/include/libc-symbols.h
-@@ -240,12 +240,12 @@
+--- eglibc-2.10.orig/include/libc-symbols.h	2009-12-01 13:40:19.000000000 +0100
++++ eglibc-2.10/include/libc-symbols.h	2009-12-01 13:40:30.000000000 +0100
+@@ -239,12 +239,12 @@
  #  define __make_section_unallocated(section_string)
  # endif
  

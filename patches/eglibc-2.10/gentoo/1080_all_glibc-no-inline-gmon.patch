@@ -23,11 +23,11 @@ Kazu Hirata
  sysdeps/generic/initfini.c |    2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-Index: glibc-2.9/sysdeps/generic/initfini.c
+Index: eglibc-2.10/sysdeps/generic/initfini.c
 ===================================================================
---- glibc-2.9.orig/sysdeps/generic/initfini.c
-+++ glibc-2.9/sysdeps/generic/initfini.c
-@@ -70,7 +70,7 @@ asm ("\n/*@TESTS_END*/");
+--- eglibc-2.10.orig/sysdeps/generic/initfini.c	2009-12-01 13:40:19.000000000 +0100
++++ eglibc-2.10/sysdeps/generic/initfini.c	2009-12-01 13:40:30.000000000 +0100
+@@ -70,7 +70,7 @@
  /* The beginning of _init:  */
  asm ("\n/*@_init_PROLOG_BEGINS*/");
  

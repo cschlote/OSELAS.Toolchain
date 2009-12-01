@@ -19,11 +19,11 @@ See http://sources.redhat.com/bugzilla/show_bug.cgi?id=631
  elf/Makefile |    7 +++++++
  2 files changed, 8 insertions(+), 1 deletion(-)
 
-Index: glibc-2.9/Makeconfig
+Index: eglibc-2.10/Makeconfig
 ===================================================================
---- glibc-2.9.orig/Makeconfig
-+++ glibc-2.9/Makeconfig
-@@ -509,7 +509,7 @@ endif
+--- eglibc-2.10.orig/Makeconfig	2009-12-01 13:40:27.000000000 +0100
++++ eglibc-2.10/Makeconfig	2009-12-01 13:40:30.000000000 +0100
+@@ -522,7 +522,7 @@
  
  # The static libraries.
  ifeq (yes,$(build-static))
@@ -32,11 +32,11 @@ Index: glibc-2.9/Makeconfig
  else
  ifeq (yes,$(build-shared))
  # We can try to link the programs with lib*_pic.a...
-Index: glibc-2.9/elf/Makefile
+Index: eglibc-2.10/elf/Makefile
 ===================================================================
---- glibc-2.9.orig/elf/Makefile
-+++ glibc-2.9/elf/Makefile
-@@ -121,6 +121,13 @@ install-others	= $(inst_slibdir)/$(rtld-
+--- eglibc-2.10.orig/elf/Makefile	2009-12-01 13:40:29.000000000 +0100
++++ eglibc-2.10/elf/Makefile	2009-12-01 13:40:30.000000000 +0100
+@@ -122,6 +122,13 @@
  install-bin-script = ldd
  endif
  

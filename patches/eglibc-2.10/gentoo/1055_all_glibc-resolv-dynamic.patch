@@ -9,10 +9,10 @@ http://bugs.gentoo.org/177416
  resolv/res_libc.c |   15 +++++++++++++++
  1 file changed, 15 insertions(+)
 
-Index: glibc-2.9/resolv/res_libc.c
+Index: eglibc-2.10/resolv/res_libc.c
 ===================================================================
---- glibc-2.9.orig/resolv/res_libc.c
-+++ glibc-2.9/resolv/res_libc.c
+--- eglibc-2.10.orig/resolv/res_libc.c	2009-12-01 13:40:19.000000000 +0100
++++ eglibc-2.10/resolv/res_libc.c	2009-12-01 13:40:29.000000000 +0100
 @@ -22,6 +22,7 @@
  #include <arpa/nameser.h>
  #include <resolv.h>
@@ -21,7 +21,7 @@ Index: glibc-2.9/resolv/res_libc.c
  
  
  /* The following bit is copied from res_data.c (where it is #ifdef'ed
-@@ -95,6 +96,20 @@ int
+@@ -95,6 +96,20 @@
  __res_maybe_init (res_state resp, int preinit)
  {
  	if (resp->options & RES_INIT) {
@@ -40,5 +40,5 @@ Index: glibc-2.9/resolv/res_libc.c
 +			}
 +		}
  		if (__res_initstamp != resp->_u._ext.initstamp) {
- 			if (resp->nscount > 0) {
+ 			if (resp->nscount > 0)
  				__res_iclose (resp, true);

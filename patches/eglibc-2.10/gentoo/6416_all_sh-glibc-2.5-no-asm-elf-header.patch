@@ -3,18 +3,14 @@
 	* sysdeps/unix/sysv/linux/sh/sys/procfs.h: Copy Linux's asm-sh/elf.h types.
 
 ---
- sysdeps/unix/sysv/linux/sh/sys/procfs.h |   11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
+ sysdeps/unix/sysv/linux/sh/sys/procfs.h |   10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-Index: glibc-2.9/sysdeps/unix/sysv/linux/sh/sys/procfs.h
+Index: eglibc-2.10/sysdeps/unix/sysv/linux/sh/sys/procfs.h
 ===================================================================
---- glibc-2.9.orig/sysdeps/unix/sysv/linux/sh/sys/procfs.h
-+++ glibc-2.9/sysdeps/unix/sysv/linux/sh/sys/procfs.h
-@@ -29,10 +29,19 @@
- #include <sys/types.h>
- #include <sys/ucontext.h>
- #include <sys/user.h>
--#include <asm/elf.h>
+--- eglibc-2.10.orig/sysdeps/unix/sysv/linux/sh/sys/procfs.h	2009-12-01 13:40:18.000000000 +0100
++++ eglibc-2.10/sysdeps/unix/sysv/linux/sh/sys/procfs.h	2009-12-01 13:40:33.000000000 +0100
+@@ -31,6 +31,16 @@
  
  __BEGIN_DECLS
  

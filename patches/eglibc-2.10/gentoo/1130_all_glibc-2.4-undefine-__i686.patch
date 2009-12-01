@@ -14,13 +14,13 @@ http://sourceware.org/ml/libc-alpha/2006-04/msg00090.html
  sysdeps/i386/sysdep.h              |    8 ++++++++
  2 files changed, 11 insertions(+)
 
-Index: glibc-2.9/nptl/sysdeps/pthread/pt-initfini.c
+Index: eglibc-2.10/nptl/sysdeps/pthread/pt-initfini.c
 ===================================================================
---- glibc-2.9.orig/nptl/sysdeps/pthread/pt-initfini.c
-+++ glibc-2.9/nptl/sysdeps/pthread/pt-initfini.c
-@@ -45,6 +45,9 @@
- /* Embed an #include to pull in the alignment and .end directives. */
- asm ("\n#include \"defs.h\"");
+--- eglibc-2.10.orig/nptl/sysdeps/pthread/pt-initfini.c	2009-12-01 13:40:19.000000000 +0100
++++ eglibc-2.10/nptl/sysdeps/pthread/pt-initfini.c	2009-12-01 13:40:31.000000000 +0100
+@@ -50,6 +50,9 @@
+ asm ("\n#define __i686 __i686");
+ asm ("\n#endif");
  
 +/* Embed an #include to pull in asm settings. */
 +asm ("\n#ifdef __i686__\n#include <sysdep.h>\n#endif");
@@ -28,10 +28,10 @@ Index: glibc-2.9/nptl/sysdeps/pthread/pt-initfini.c
  /* The initial common code ends here. */
  asm ("\n/*@HEADER_ENDS*/");
  
-Index: glibc-2.9/sysdeps/i386/sysdep.h
+Index: eglibc-2.10/sysdeps/i386/sysdep.h
 ===================================================================
---- glibc-2.9.orig/sysdeps/i386/sysdep.h
-+++ glibc-2.9/sysdeps/i386/sysdep.h
+--- eglibc-2.10.orig/sysdeps/i386/sysdep.h	2009-12-01 13:40:19.000000000 +0100
++++ eglibc-2.10/sysdeps/i386/sysdep.h	2009-12-01 13:40:31.000000000 +0100
 @@ -18,6 +18,14 @@
     Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
     02111-1307 USA.  */

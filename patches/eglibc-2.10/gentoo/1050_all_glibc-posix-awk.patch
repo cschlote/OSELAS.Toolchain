@@ -8,11 +8,11 @@ http://bugs.gentoo.org/202511
  elf/Makefile |    2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-Index: glibc-2.9/elf/Makefile
+Index: eglibc-2.10/elf/Makefile
 ===================================================================
---- glibc-2.9.orig/elf/Makefile
-+++ glibc-2.9/elf/Makefile
-@@ -312,7 +312,7 @@ $(objpfx)ld.so: $(objpfx)librtld.os $(ld
+--- eglibc-2.10.orig/elf/Makefile	2009-12-01 13:40:19.000000000 +0100
++++ eglibc-2.10/elf/Makefile	2009-12-01 13:40:29.000000000 +0100
+@@ -320,7 +320,7 @@
  		  -Wl,-soname=$(rtld-installed-name) -T $@.lds
  	rm -f $@.lds
  	readelf -s $@ \

@@ -2,11 +2,11 @@
  elf/elf.h |   13 +++++++++++++
  1 file changed, 13 insertions(+)
 
-Index: glibc-2.9/elf/elf.h
+Index: eglibc-2.10/elf/elf.h
 ===================================================================
---- glibc-2.9.orig/elf/elf.h
-+++ glibc-2.9/elf/elf.h
-@@ -571,6 +571,7 @@ typedef struct
+--- eglibc-2.10.orig/elf/elf.h	2009-12-01 13:40:18.000000000 +0100
++++ eglibc-2.10/elf/elf.h	2009-12-01 13:40:32.000000000 +0100
+@@ -572,6 +572,7 @@
  #define PT_GNU_EH_FRAME	0x6474e550	/* GCC .eh_frame_hdr segment */
  #define PT_GNU_STACK	0x6474e551	/* Indicates stack executability */
  #define PT_GNU_RELRO	0x6474e552	/* Read-only after relocation */
@@ -14,7 +14,7 @@ Index: glibc-2.9/elf/elf.h
  #define PT_LOSUNW	0x6ffffffa
  #define PT_SUNWBSS	0x6ffffffa	/* Sun Specific segment */
  #define PT_SUNWSTACK	0x6ffffffb	/* Stack segment */
-@@ -584,6 +585,18 @@ typedef struct
+@@ -585,6 +586,18 @@
  #define PF_X		(1 << 0)	/* Segment is executable */
  #define PF_W		(1 << 1)	/* Segment is writable */
  #define PF_R		(1 << 2)	/* Segment is readable */

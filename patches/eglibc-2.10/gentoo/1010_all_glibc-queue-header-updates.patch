@@ -6,11 +6,11 @@ http://bugs.gentoo.org/201979
  misc/sys/queue.h |   37 +++++++++++++++++++++++++++++++++++++
  1 file changed, 37 insertions(+)
 
-Index: glibc-2.9/misc/sys/queue.h
+Index: eglibc-2.10/misc/sys/queue.h
 ===================================================================
---- glibc-2.9.orig/misc/sys/queue.h
-+++ glibc-2.9/misc/sys/queue.h
-@@ -136,6 +136,11 @@ struct {								\
+--- eglibc-2.10.orig/misc/sys/queue.h	2009-12-01 13:40:19.000000000 +0100
++++ eglibc-2.10/misc/sys/queue.h	2009-12-01 13:40:28.000000000 +0100
+@@ -136,6 +136,11 @@
  		(var);							\
  		(var) = ((var)->field.le_next))
  
@@ -22,7 +22,7 @@ Index: glibc-2.9/misc/sys/queue.h
  /*
   * List access methods.
   */
-@@ -197,6 +202,16 @@ struct {								\
+@@ -197,6 +202,16 @@
  #define	SLIST_FOREACH(var, head, field)					\
  	for((var) = (head)->slh_first; (var); (var) = (var)->field.sle_next)
  
@@ -39,7 +39,7 @@ Index: glibc-2.9/misc/sys/queue.h
  /*
   * Singly-linked List access methods.
   */
-@@ -242,6 +257,12 @@ struct {								\
+@@ -242,6 +257,12 @@
  	(head)->stqh_last = &(elm)->field.stqe_next;			\
  } while (/*CONSTCOND*/0)
  
@@ -52,7 +52,7 @@ Index: glibc-2.9/misc/sys/queue.h
  #define	STAILQ_INSERT_AFTER(head, listelm, elm, field) do {		\
  	if (((elm)->field.stqe_next = (listelm)->field.stqe_next) == NULL)\
  		(head)->stqh_last = &(elm)->field.stqe_next;		\
-@@ -286,6 +307,11 @@ struct {								\
+@@ -286,6 +307,11 @@
  #define	STAILQ_FIRST(head)	((head)->stqh_first)
  #define	STAILQ_NEXT(elm, field)	((elm)->field.stqe_next)
  
@@ -64,7 +64,7 @@ Index: glibc-2.9/misc/sys/queue.h
  
  /*
   * Simple queue definitions.
-@@ -437,11 +463,22 @@ struct {								\
+@@ -437,11 +463,22 @@
  		(var);							\
  		(var) = ((var)->field.tqe_next))
  

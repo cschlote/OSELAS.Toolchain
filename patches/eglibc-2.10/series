@@ -1,11 +1,11 @@
 make-install-lib-all.patch
+
 glibc-configure-apple-as.patch
 glibc-configure-old-gcc.patch
 configure_in-sane_readelf.diff
 configure-sane_readelf.diff
 
 glibc-2.5_stdlib_longlong.h
-
 
 gentoo/0030_all_glibc-respect-env-CPPFLAGS.patch
 gentoo/0040_all_glibc-i586-chk.patch
@@ -28,4 +28,4 @@ gentoo/6400_all_sh-glibc-2.3.2-fpscr_values.patch
 gentoo/6415_all_sh-glibc-2.5-no-asm-user-header.patch
 gentoo/6416_all_sh-glibc-2.5-no-asm-elf-header.patch
 gentoo/6645_all_glibc-mips_shn_undef-hack.patch
-glibc-configure-bintuil-2.20.patch
+

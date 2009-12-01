@@ -8,11 +8,11 @@ http://bugs.gentoo.org/60132
  manual/Makefile |    5 +++++
  1 file changed, 5 insertions(+)
 
-Index: glibc-2.9/manual/Makefile
+Index: eglibc-2.10/manual/Makefile
 ===================================================================
---- glibc-2.9.orig/manual/Makefile
-+++ glibc-2.9/manual/Makefile
-@@ -104,9 +104,14 @@ dir-add.texi: xtract-typefun.awk $(texis
+--- eglibc-2.10.orig/manual/Makefile	2009-12-01 13:40:19.000000000 +0100
++++ eglibc-2.10/manual/Makefile	2009-12-01 13:40:28.000000000 +0100
+@@ -105,9 +105,14 @@
  libm-err.texi: stamp-libm-err
  stamp-libm-err: libm-err-tab.pl $(wildcard $(foreach dir,$(sysdirs),\
  						     $(dir)/libm-test-ulps))
@@ -26,4 +26,4 @@ Index: glibc-2.9/manual/Makefile
 +endif
  	touch $@
  
- # Generate Texinfo files from the C source for the example programs.
+ # Package version and bug reporting URL.

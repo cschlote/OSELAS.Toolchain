@@ -15,11 +15,11 @@ warning is applicable.
  sunrpc/Makefile |    2 +-
  5 files changed, 9 insertions(+), 3 deletions(-)
 
-Index: glibc-2.9/libio/Makefile
+Index: eglibc-2.10/libio/Makefile
 ===================================================================
---- glibc-2.9.orig/libio/Makefile
-+++ glibc-2.9/libio/Makefile
-@@ -91,7 +91,7 @@ CFLAGS-fseeko.c = $(exceptions)
+--- eglibc-2.10.orig/libio/Makefile	2009-12-01 13:40:19.000000000 +0100
++++ eglibc-2.10/libio/Makefile	2009-12-01 13:40:31.000000000 +0100
+@@ -113,7 +113,7 @@
  CFLAGS-ftello64.c = $(exceptions)
  CFLAGS-ftello.c = $(exceptions)
  CFLAGS-fwide.c = $(exceptions)
@@ -28,7 +28,7 @@ Index: glibc-2.9/libio/Makefile
  CFLAGS-getc.c = $(exceptions)
  CFLAGS-getchar.c = $(exceptions)
  CFLAGS-getwc.c = $(exceptions)
-@@ -133,7 +133,7 @@ CFLAGS-putwc.c = $(exceptions)
+@@ -155,7 +155,7 @@
  CFLAGS-putwchar.c = $(exceptions)
  CFLAGS-rewind.c = $(exceptions)
  CFLAGS-wfileops.c = $(exceptions)
@@ -37,11 +37,11 @@ Index: glibc-2.9/libio/Makefile
  CFLAGS-oldiofopen.c = $(exceptions)
  CFLAGS-iofopen.c = $(exceptions)
  CFLAGS-iofopen64.c = $(exceptions)
-Index: glibc-2.9/nis/Makefile
+Index: eglibc-2.10/nis/Makefile
 ===================================================================
---- glibc-2.9.orig/nis/Makefile
-+++ glibc-2.9/nis/Makefile
-@@ -67,6 +67,9 @@ libnss_nisplus-routines	:= $(addprefix n
+--- eglibc-2.10.orig/nis/Makefile	2009-12-01 13:40:19.000000000 +0100
++++ eglibc-2.10/nis/Makefile	2009-12-01 13:40:31.000000000 +0100
+@@ -76,6 +76,9 @@
  			   nss-nisplus nisplus-initgroups
  libnss_nisplus-inhibit-o = $(filter-out .os,$(object-suffixes))
  
@@ -51,11 +51,11 @@ Index: glibc-2.9/nis/Makefile
  include ../Rules
  
  
-Index: glibc-2.9/nptl/Makefile
+Index: eglibc-2.10/nptl/Makefile
 ===================================================================
---- glibc-2.9.orig/nptl/Makefile
-+++ glibc-2.9/nptl/Makefile
-@@ -193,6 +193,7 @@ CFLAGS-tcdrain.c = -fexceptions -fasynch
+--- eglibc-2.10.orig/nptl/Makefile	2009-12-01 13:40:19.000000000 +0100
++++ eglibc-2.10/nptl/Makefile	2009-12-01 13:40:31.000000000 +0100
+@@ -197,6 +197,7 @@
  
  CFLAGS-pt-system.c = -fexceptions
  
@@ -63,12 +63,12 @@ Index: glibc-2.9/nptl/Makefile
  
  tests = tst-typesizes \
  	tst-attr1 tst-attr2 tst-attr3 \
-Index: glibc-2.9/nss/Makefile
+Index: eglibc-2.10/nss/Makefile
 ===================================================================
---- glibc-2.9.orig/nss/Makefile
-+++ glibc-2.9/nss/Makefile
-@@ -72,6 +72,8 @@ ifneq ($(build-static-nss),yes)
- libnss_files-inhibit-o	= $(filter-out .os,$(object-suffixes))
+--- eglibc-2.10.orig/nss/Makefile	2009-12-01 13:40:19.000000000 +0100
++++ eglibc-2.10/nss/Makefile	2009-12-01 13:40:31.000000000 +0100
+@@ -118,6 +118,8 @@
+ 	-DFIXED_FUNCTIONS='"$(OPTION_EGLIBC_NSSWITCH_FIXED_FUNCTIONS)"'
  endif
  
 +CFLAGS-nsswitch.c += -fno-strict-aliasing
@@ -76,11 +76,11 @@ Index: glibc-2.9/nss/Makefile
  include ../Rules
  
  
-Index: glibc-2.9/sunrpc/Makefile
+Index: eglibc-2.10/sunrpc/Makefile
 ===================================================================
---- glibc-2.9.orig/sunrpc/Makefile
-+++ glibc-2.9/sunrpc/Makefile
-@@ -127,7 +127,7 @@ CFLAGS-pmap_rmt.c = -fexceptions
+--- eglibc-2.10.orig/sunrpc/Makefile	2009-12-01 13:40:19.000000000 +0100
++++ eglibc-2.10/sunrpc/Makefile	2009-12-01 13:40:31.000000000 +0100
+@@ -134,7 +134,7 @@
  CFLAGS-clnt_perr.c = -fexceptions
  CFLAGS-openchild.c = -fexceptions
  

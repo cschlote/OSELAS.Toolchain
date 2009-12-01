@@ -2,11 +2,11 @@
  configure |   90 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++--
  1 file changed, 88 insertions(+), 2 deletions(-)
 
-Index: glibc-2.9/configure
+Index: eglibc-2.10/configure
 ===================================================================
---- glibc-2.9.orig/configure
-+++ glibc-2.9/configure
-@@ -5989,6 +5989,92 @@ _ACEOF
+--- eglibc-2.10.orig/configure	2009-12-01 13:40:26.000000000 +0100
++++ eglibc-2.10/configure	2009-12-01 13:40:27.000000000 +0100
+@@ -5725,6 +5725,92 @@
      fi
    fi
  
@@ -96,10 +96,10 @@ Index: glibc-2.9/configure
 +fi
 +
 +
-   { echo "$as_me:$LINENO: checking for .preinit_array/.init_array/.fini_array support" >&5
- echo $ECHO_N "checking for .preinit_array/.init_array/.fini_array support... $ECHO_C" >&6; }
+   echo "$as_me:$LINENO: checking for .preinit_array/.init_array/.fini_array support" >&5
+ echo $ECHO_N "checking for .preinit_array/.init_array/.fini_array support... $ECHO_C" >&6
  if test "${libc_cv_initfini_array+set}" = set; then
-@@ -6008,7 +6094,7 @@ EOF
+@@ -5744,7 +5830,7 @@
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; }
    then
@@ -108,7 +108,7 @@ Index: glibc-2.9/configure
        libc_cv_initfini_array=yes
      else
        libc_cv_initfini_array=no
-@@ -6308,7 +6394,7 @@ EOF
+@@ -6044,7 +6130,7 @@
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; }
    then

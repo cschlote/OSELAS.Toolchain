@@ -2,11 +2,11 @@
  stdlib/longlong.h |   14 ++++++++++++++
  1 file changed, 14 insertions(+)
 
-Index: glibc-2.9/stdlib/longlong.h
+Index: eglibc-2.10/stdlib/longlong.h
 ===================================================================
---- glibc-2.9.orig/stdlib/longlong.h
-+++ glibc-2.9/stdlib/longlong.h
-@@ -205,6 +205,14 @@ UDItype __umulsidi3 (USItype, USItype);
+--- eglibc-2.10.orig/stdlib/longlong.h	2009-12-01 13:40:19.000000000 +0100
++++ eglibc-2.10/stdlib/longlong.h	2009-12-01 13:40:27.000000000 +0100
+@@ -205,6 +205,14 @@
  	     "rI" ((USItype) (bh)),					\
  	     "r" ((USItype) (al)),					\
  	     "rI" ((USItype) (bl)) __CLOBBER_CC)
@@ -21,7 +21,7 @@ Index: glibc-2.9/stdlib/longlong.h
  #define umul_ppmm(xh, xl, a, b) \
  {register USItype __t0, __t1, __t2;					\
    __asm__ ("%@ Inlined umul_ppmm\n"					\
-@@ -226,7 +234,13 @@ UDItype __umulsidi3 (USItype, USItype);
+@@ -226,7 +234,13 @@
  	   : "r" ((USItype) (a)),					\
  	     "r" ((USItype) (b)) __CLOBBER_CC );}
  #define UMUL_TIME 20

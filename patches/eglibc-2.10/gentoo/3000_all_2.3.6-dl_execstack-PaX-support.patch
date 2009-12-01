@@ -13,11 +13,11 @@
  sysdeps/unix/sysv/linux/dl-execstack.c |   19 ++++++++++++++++---
  2 files changed, 18 insertions(+), 4 deletions(-)
 
-Index: glibc-2.9/nptl/allocatestack.c
+Index: eglibc-2.10/nptl/allocatestack.c
 ===================================================================
---- glibc-2.9.orig/nptl/allocatestack.c
-+++ glibc-2.9/nptl/allocatestack.c
-@@ -299,7 +299,8 @@ change_stack_perm (struct pthread *pd
+--- eglibc-2.10.orig/nptl/allocatestack.c	2009-12-01 13:40:18.000000000 +0100
++++ eglibc-2.10/nptl/allocatestack.c	2009-12-01 13:40:31.000000000 +0100
+@@ -326,7 +326,8 @@
  # error "Define either _STACK_GROWS_DOWN or _STACK_GROWS_UP"
  #endif
    if (mprotect (stack, len, PROT_READ | PROT_WRITE | PROT_EXEC) != 0)
@@ -27,11 +27,11 @@ Index: glibc-2.9/nptl/allocatestack.c
  
    return 0;
  }
-Index: glibc-2.9/sysdeps/unix/sysv/linux/dl-execstack.c
+Index: eglibc-2.10/sysdeps/unix/sysv/linux/dl-execstack.c
 ===================================================================
---- glibc-2.9.orig/sysdeps/unix/sysv/linux/dl-execstack.c
-+++ glibc-2.9/sysdeps/unix/sysv/linux/dl-execstack.c
-@@ -63,7 +63,10 @@ _dl_make_stack_executable (void **stack_
+--- eglibc-2.10.orig/sysdeps/unix/sysv/linux/dl-execstack.c	2009-12-01 13:40:18.000000000 +0100
++++ eglibc-2.10/sysdeps/unix/sysv/linux/dl-execstack.c	2009-12-01 13:40:31.000000000 +0100
+@@ -63,7 +63,10 @@
        else
  # endif
  	{
@@ -43,7 +43,7 @@ Index: glibc-2.9/sysdeps/unix/sysv/linux/dl-execstack.c
  	  goto out;
  	}
      }
-@@ -89,7 +92,12 @@ _dl_make_stack_executable (void **stack_
+@@ -89,7 +92,12 @@
  	page -= size;
        else
  	{
@@ -57,7 +57,7 @@ Index: glibc-2.9/sysdeps/unix/sysv/linux/dl-execstack.c
  	    {
  	      result = errno;
  	      goto out;
-@@ -115,7 +123,12 @@ _dl_make_stack_executable (void **stack_
+@@ -115,7 +123,12 @@
  	page += size;
        else
  	{

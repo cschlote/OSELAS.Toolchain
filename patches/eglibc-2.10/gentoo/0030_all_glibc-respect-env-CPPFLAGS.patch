@@ -6,11 +6,11 @@ random -D things without having to set CFLAGS/ASFLAGS
  config.make.in |    1 +
  2 files changed, 2 insertions(+)
 
-Index: glibc-2.9/Makeconfig
+Index: eglibc-2.10/Makeconfig
 ===================================================================
---- glibc-2.9.orig/Makeconfig
-+++ glibc-2.9/Makeconfig
-@@ -673,6 +673,7 @@ CPPFLAGS = $($(subdir)-CPPFLAGS) $(+incl
+--- eglibc-2.10.orig/Makeconfig	2009-12-01 13:40:19.000000000 +0100
++++ eglibc-2.10/Makeconfig	2009-12-01 13:40:27.000000000 +0100
+@@ -696,6 +696,7 @@
  	   $(foreach lib,$(libof-$(basename $(@F))) \
  		         $(libof-$(<F)) $(libof-$(@F)),$(CPPFLAGS-$(lib))) \
  	   $(CPPFLAGS-$(<F)) $(CPPFLAGS-$(@F)) $(CPPFLAGS-$(basename $(@F)))
@@ -18,15 +18,15 @@ Index: glibc-2.9/Makeconfig
  override CFLAGS	= -std=gnu99 $(gnu89-inline-CFLAGS) \
  		  $(filter-out %frame-pointer,$(+cflags)) $(+gccwarn-c) \
  		  $(sysdep-CFLAGS) $(CFLAGS-$(suffix $@)) $(CFLAGS-$(<F)) \
-Index: glibc-2.9/config.make.in
+Index: eglibc-2.10/config.make.in
 ===================================================================
---- glibc-2.9.orig/config.make.in
-+++ glibc-2.9/config.make.in
-@@ -97,6 +97,7 @@ CC = @CC@
+--- eglibc-2.10.orig/config.make.in	2009-12-01 13:40:19.000000000 +0100
++++ eglibc-2.10/config.make.in	2009-12-01 13:40:27.000000000 +0100
+@@ -103,6 +103,7 @@
  CXX = @CXX@
  BUILD_CC = @BUILD_CC@
  CFLAGS = @CFLAGS@
 +CPPFLAGS-config = @CPPFLAGS@
  ASFLAGS-config = @ASFLAGS_config@
  AR = @AR@
- RANLIB = @RANLIB@
+ NM = @NM@
