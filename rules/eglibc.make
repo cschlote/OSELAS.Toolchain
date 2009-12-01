@@ -137,7 +137,8 @@ EGLIBC_AUTOCONF := \
 	--enable-debug \
 	--enable-profile \
 	--enable-shared \
-	--enable-static-nss
+
+#FIXME:build error?	--enable-static-nss
 
 $(STATEDIR)/eglibc.prepare:
 	@$(call targetinfo)
