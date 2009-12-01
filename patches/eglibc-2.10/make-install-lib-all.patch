@@ -17,14 +17,14 @@
 # Makerules |    8 ++++++++
 # 1 file changed, 8 insertions(+)
 #
-Index: eglibc-2.10/Makerules
+Index: glibc-2.9/Makerules
 ===================================================================
---- eglibc-2.10.orig/Makerules	2009-11-17 22:47:29.000000000 +0100
-+++ eglibc-2.10/Makerules	2009-11-30 17:22:17.000000000 +0100
-@@ -875,6 +875,13 @@
+--- glibc-2.9.orig/Makerules
++++ glibc-2.9/Makerules
+@@ -853,6 +853,13 @@ endef
+ installed-libcs := $(foreach o,$(filter-out .os,$(object-suffixes-for-libc)),\
  			     $(inst_libdir)/$(patsubst %,$(libtype$o),\
  						     $(libprefix)$(libc-name)))
- installed-libcs := $(installed-libcs) $(inst_libdir)/libc_pic.a
 +
 +install-lib-all: $(inst_slibdir)/libc.so$(libc.so-version) \
 +		$(inst_slibdir)/libc-$(version).so \
@@ -35,7 +35,7 @@ Index: eglibc-2.10/Makerules
  install: $(installed-libcs)
  $(installed-libcs): $(inst_libdir)/lib$(libprefix)%: lib $(+force)
  	$(make-target-directory)
-@@ -898,6 +905,7 @@
+@@ -876,6 +883,7 @@ endef
  install-lib.so := $(filter %.so,$(install-lib:%_pic.a=%.so))
  install-lib := $(filter-out %.so %_pic.a,$(install-lib))
  
