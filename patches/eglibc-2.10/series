@@ -1,2 +1,3 @@
 make-install-lib-all.patch
 
+fix-enable-static-nss-linkage.patch

@@ -1,0 +1,37 @@
+Proposed fix : http://www.sourceware.org/bugzilla/show_bug.cgi?id=631
+---
+ Makeconfig   |    2 +-
+ elf/Makefile |    7 +++++++
+ 2 files changed, 8 insertions(+), 1 deletion(-)
+
+Index: eglibc-2.10/Makeconfig
+===================================================================
+--- eglibc-2.10.orig/Makeconfig	2009-12-01 11:45:33.000000000 +0100
++++ eglibc-2.10/Makeconfig	2009-12-01 11:46:31.000000000 +0100
+@@ -522,7 +522,7 @@
+ 
+ # The static libraries.
+ ifeq (yes,$(build-static))
+-link-libc-static = $(common-objpfx)libc.a $(static-gnulib) $(common-objpfx)libc.a
++link-libc-static = $(common-objpfx)libc.a $(static-gnulib) $(otherlibs) $(common-objpfx)libc.a
+ else
+ ifeq (yes,$(build-shared))
+ # We can try to link the programs with lib*_pic.a...
+Index: eglibc-2.10/elf/Makefile
+===================================================================
+--- eglibc-2.10.orig/elf/Makefile	2009-12-01 11:47:00.000000000 +0100
++++ eglibc-2.10/elf/Makefile	2009-12-01 11:47:44.000000000 +0100
+@@ -122,6 +122,13 @@
+ install-bin-script = ldd
+ endif
+ 
++ifeq (yes,$(build-static-nss))
++nssobjdir := $(patsubst ../$(subdir),.,$(common-objpfx)nss)
++resolvobjdir := $(patsubst ../$(subdir),.,$(common-objpfx)resolv)
++otherlibs += $(nssobjdir)/libnss_files.a $(resolvobjdir)/libnss_dns.a \
++		$(resolvobjdir)/libresolv.a
++endif
++
+ others		= sprof sln
+ install-bin	= sprof
+ others-static   = sln
