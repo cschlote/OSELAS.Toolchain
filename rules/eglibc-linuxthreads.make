@@ -21,8 +21,8 @@ PACKAGES-$(PTXCONF_EGLIBC_LINUXTHREADS) += eglibc-linuxthreads
 EGLIBC_LINUXTHREADS_VERSION	:= $(call remove_quotes,$(PTXCONF_EGLIBC_LINUXTHREADS_VERSION))
 EGLIBC_LINUXTHREADS		:= eglibc-linuxthreads-$(EGLIBC_LINUXTHREADS_VERSION)
 EGLIBC_LINUXTHREADS_SUFFIX	:= svn
-EGLIBC_LINUXTHREADS_URL		:= $(EGLIBC_URL)
-EGLIBC_LINUXTHREADS_SVNREV	:= $(EGLIBC_SVNREV)
+EGLIBC_LINUXTHREADS_URL		= $(EGLIBC_URL)
+EGLIBC_LINUXTHREADS_SVNREV	= $(EGLIBC_SVNREV)
 EGLIBC_LINUXTHREADS_SOURCE	:= $(SRCDIR)/$(EGLIBC_LINUXTHREADS).$(EGLIBC_LINUXTHREADS_SUFFIX)
 EGLIBC_LINUXTHREADS_SOURCE_B := $(SRCDIR)/$(EGLIBC_LINUXTHREADS)
 EGLIBC_LINUXTHREADS_DIR		:= $(BUILDDIR)/$(EGLIBC_LINUXTHREADS)
@@ -31,23 +31,23 @@ EGLIBC_LINUXTHREADS_DIR		:= $(BUILDDIR)/$(EGLIBC_LINUXTHREADS)
 # Get
 # ----------------------------------------------------------------------------
 
-$(EGLIBC_LINUXTHREADS_SOURCE):
+$(EGLIBC_LINUXTHREADS_SOURCE): | $(EGLIBC_LINUXTHREADS_SOURCE_B)
 	@$(call targetinfo)
 	# @$(call get, EGLIBC_LINUXTHREADS)
 	# See http://www.eglibc.org/archives/issues/msg00064.html
 	if [ -d $(EGLIBC_LINUXTHREADS_SOURCE_B) ]; then \
 	   rev1=`svnversion $(EGLIBC_LINUXTHREADS_SOURCE_B)`; \
 	   rev2=`cat $@`; \
-	   if test "$$rev1" -ne "$$rev2"; then \
+	   if test "$$rev1" != "$$rev2"; then \
 	      touch $@; \
 	      echo Touched $@ because of changes; \
 	   fi; \
 	else \
-	   rm $@; \
+	   rm -rf $@; \
 	fi
 
-$(EGLIBC_SOURCE_B):
-	if [ -d $(EGLIBC_SOURCE_B) ]; then \
+$(EGLIBC_LINUXTHREADS_SOURCE_B):
+	if [ -d $(EGLIBC_LINUXTHREADS_SOURCE_B) ]; then \
 	   svn update $(EGLIBC_PORTS_SVNREV) $(EGLIBC_LINUXTHREADS_SOURCE_B);\
 	else \
 	   svn co $(EGLIBC_LINUXTHREADS_SVNREV) $(EGLIBC_LINUXTHREADS_URL)/linuxthreads $(EGLIBC_LINUXTHREADS_SOURCE_B); \
@@ -66,7 +66,7 @@ $(STATEDIR)/eglibc-linuxthreads.extract:
 	@$(call clean, $(EGLIBC_LINUXTHREADS_DIR))
 	# @$(call extract, EGLIBC_LINUXTHREADS, $(EGLIBC_LINUXTHREADS_DIR))
 	# See http://www.eglibc.org/archives/issues/msg00064.html
-	svn export $(EGLIBC_LINUXTHREADS_SOURCE) $(EGLIBC_LINUXTHREADS_DIR)
+	svn export $(EGLIBC_LINUXTHREADS_SOURCE_B) $(EGLIBC_LINUXTHREADS_DIR)
 	@$(call patchin, EGLIBC_LINUXTHREADS, $(EGLIBC_LINUXTHREADS_DIR))
 	@$(call touch)
 
