@@ -190,7 +190,6 @@ fixup()
 	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=soft	--with-fpu=vfp	--with-cpu=cortex-m3				--with-mode=thumb"
 	    ;;
 
-
 	i586-unknown-linux-gnu)
 	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-arch=i586"
 	    ;;
@@ -199,7 +198,7 @@ fixup()
 	    ;;
 
 	m68k-linux-gnu)
-	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-cpu=m68030 --with-float=hard"
+	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-cpu=m68030"
 	    PTXCONF_GLIBC_CONFIG_EXTRA="--without-fp"
 	    ;;
 
