@@ -48,7 +48,7 @@ endif
 PTXDIST			:= ./p --force
 
 ifdef BENICE
-NICE			+= nice -20
+NICE			+= nice -n 20
 endif
 
 CONFIGDIR	:= ptxconfigs
