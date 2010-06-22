@@ -1,0 +1,61 @@
+2007-03-13  Mike Frysinger  <vapier@gentoo.org>
+
+	* sysdeps/unix/sysv/linux/sh/sys/user.h: Copy Linux's asm-sh/user.h.
+
+---
+ sysdeps/unix/sysv/linux/sh/sys/user.h |   30 ++++++++++++++++++++++++++++++
+ 1 file changed, 30 insertions(+)
+
+Index: eglibc-2.10/sysdeps/unix/sysv/linux/sh/sys/user.h
+===================================================================
+--- eglibc-2.10.orig/sysdeps/unix/sysv/linux/sh/sys/user.h	2009-12-01 13:40:18.000000000 +0100
++++ eglibc-2.10/sysdeps/unix/sysv/linux/sh/sys/user.h	2009-12-01 13:40:32.000000000 +0100
+@@ -20,6 +20,7 @@
+ #ifndef _SYS_USER_H
+ #define _SYS_USER_H	1
+ 
++#include <unistd.h>
+ #include <asm/ptrace.h>
+ 
+ /* asm/ptrace.h polutes the namespace.  */
+@@ -38,6 +39,29 @@
+ #define ELF_NGREG (sizeof (struct pt_regs) / sizeof (elf_greg_t))
+ typedef elf_greg_t elf_gregset_t[ELF_NGREG];
+ 
++/*
++ * Core file format: The core file is written in such a way that gdb
++ * can understand it and provide useful information to the user (under
++ * linux we use the `trad-core' bfd).  The file contents are as follows:
++ *
++ *  upage: 1 page consisting of a user struct that tells gdb
++ *	what is present in the file.  Directly after this is a
++ *	copy of the task_struct, which is currently not used by gdb,
++ *	but it may come in handy at some point.  All of the registers
++ *	are stored as part of the upage.  The upage should always be
++ *	only one page long.
++ *  data: The data segment follows next.  We use current->end_text to
++ *	current->brk to pick up all of the user variables, plus any memory
++ *	that may have been sbrk'ed.  No attempt is made to determine if a
++ *	page is demand-zero or if a page is totally unused, we just cover
++ *	the entire range.  All of the addresses are rounded in such a way
++ *	that an integral number of pages is written.
++ *  stack: We need the stack information in order to get a meaningful
++ *	backtrace.  We need to write the data from usp to
++ *	current->start_stack, so we round each of these in order to be able
++ *	to write an integer number of pages.
++ */
++
+ struct user_fpu_struct
+   {
+     unsigned long fp_regs[16];
+@@ -65,4 +89,10 @@
+     char u_comm[32];
+   };
+ 
++#define NBPG			getpagesize()
++#define UPAGES			1
++#define HOST_TEXT_START_ADDR	(u.start_code)
++#define HOST_DATA_START_ADDR	(u.start_data)
++#define HOST_STACK_END_ADDR	(u.start_stack + u.u_ssize * NBPG)
++
+ #endif  /* sys/user.h */

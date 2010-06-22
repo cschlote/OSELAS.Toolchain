@@ -1,0 +1,32 @@
+Respect environment CPPFLAGS when we run ./configure so we can inject
+random -D things without having to set CFLAGS/ASFLAGS
+
+---
+ Makeconfig     |    1 +
+ config.make.in |    1 +
+ 2 files changed, 2 insertions(+)
+
+Index: eglibc-2.11/Makeconfig
+===================================================================
+--- eglibc-2.11.orig/Makeconfig	2009-06-24 18:26:34.000000000 +0200
++++ eglibc-2.11/Makeconfig	2010-02-08 18:25:32.000000000 +0100
+@@ -696,6 +696,7 @@
+ 	   $(foreach lib,$(libof-$(basename $(@F))) \
+ 		         $(libof-$(<F)) $(libof-$(@F)),$(CPPFLAGS-$(lib))) \
+ 	   $(CPPFLAGS-$(<F)) $(CPPFLAGS-$(@F)) $(CPPFLAGS-$(basename $(@F)))
++CPPFLAGS += $(CPPFLAGS-config)
+ override CFLAGS	= -std=gnu99 $(gnu89-inline-CFLAGS) \
+ 		  $(filter-out %frame-pointer,$(+cflags)) $(+gccwarn-c) \
+ 		  $(sysdep-CFLAGS) $(CFLAGS-$(suffix $@)) $(CFLAGS-$(<F)) \
+Index: eglibc-2.11/config.make.in
+===================================================================
+--- eglibc-2.11.orig/config.make.in	2009-07-29 17:58:14.000000000 +0200
++++ eglibc-2.11/config.make.in	2010-02-08 18:25:32.000000000 +0100
+@@ -106,6 +106,7 @@
+ CXX = @CXX@
+ BUILD_CC = @BUILD_CC@
+ CFLAGS = @CFLAGS@
++CPPFLAGS-config = @CPPFLAGS@
+ ASFLAGS-config = @ASFLAGS_config@
+ AR = @AR@
+ NM = @NM@

@@ -1,0 +1,17 @@
+---
+ configure |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Index: eglibc-2.11/configure
+===================================================================
+--- eglibc-2.11.orig/configure	2010-02-08 18:22:48.000000000 +0100
++++ eglibc-2.11/configure	2010-02-08 18:22:52.000000000 +0100
+@@ -5124,7 +5124,7 @@
+   { $as_echo "$as_me:$LINENO: result: $ac_prog_version" >&5
+ $as_echo "$ac_prog_version" >&6; }
+ fi
+-if test $ac_verc_fail = yes; then
++if test $ac_verc_fail = yes -a -z "$enable_hacker_mode"; then
+   critic_missing="$critic_missing gcc"
+ fi
+ 
