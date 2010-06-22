@@ -28,3 +28,4 @@ gentoo/6400_all_sh-glibc-2.3.2-fpscr_values.patch
 gentoo/6415_all_sh-glibc-2.5-no-asm-user-header.patch
 gentoo/6416_all_sh-glibc-2.5-no-asm-elf-header.patch
 gentoo/6645_all_glibc-mips_shn_undef-hack.patch
+glibc-configure-bintuil-2.20.patch
