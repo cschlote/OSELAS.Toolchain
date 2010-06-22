@@ -1,0 +1,19 @@
+http://sourceware.org/ml/binutils/2007-07/msg00401.html
+http://sourceware.org/bugzilla/show_bug.cgi?id=4970
+
+---
+ configure |    1 +
+ 1 file changed, 1 insertion(+)
+
+Index: binutils-2.20/configure
+===================================================================
+--- binutils-2.20.orig/configure	2009-11-19 13:16:00.000000000 +0100
++++ binutils-2.20/configure	2009-11-19 13:17:25.000000000 +0100
+@@ -6295,6 +6295,7 @@
+     md_exec_prefix=/usr/ccs/bin
+     ;;
+ esac
++RPATH_ENVVAR="cant_touch_this_nah_nah_nah"
+ 
+ extra_arflags_for_target=
+ extra_nmflags_for_target=
