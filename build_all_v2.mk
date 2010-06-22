@@ -1,4 +1,4 @@
-#!/usr/bin/make -f
+#!/usr/bin/make -rRBf
 
 #
 # Makefile to build all ptxconfigs
@@ -48,7 +48,7 @@ endif
 PTXDIST			:= ./p --force
 
 ifdef BENICE
-NICE			+= nice -20
+NICE			+= nice -n 19
 endif
 
 CONFIGDIR	:= ptxconfigs
@@ -91,15 +91,32 @@ TBZ2S		:= $(foreach config,$(CONFIGS_PREFIX),$(addsuffix $(TBZ2_SUFFIX),$(config
 
 all: $(TBZ2S) $(DEBS)
 
-$(DEB_PREFIX)%$(DEB_SUFFIX): $(STATEDIR)/%.build | mkdirs
+$(DEB_PREFIX)%$(DEB_SUFFIX): $(STATEDIR)/%.build | compile-ptxd mkdirs
 	@scripts/make_deb.sh -d "$(@)" -s "$(PTX_AUTOBUILD_DESTDIR)/$(2INSTDIR_$(*))"
 
-$(TBZ2_PREFIX)%$(TBZ2_SUFFIX): $(STATEDIR)/%.build | mkdirs
+$(TBZ2_PREFIX)%$(TBZ2_SUFFIX): $(STATEDIR)/%.build | compile-ptxd mkdirs
 	@echo 'tar -C "$(PTX_AUTOBUILD_DESTDIR)/opt" -cvjf "$(@)" "$(patsubst /opt/%,%,$(2INSTDIR_$(*)))"' | fakeroot
 
 $(STATEDIR)/%.build: | mkdirs
 	@echo "building ${*}"
 	$(NICE) $(PTXDIST) go --ptxconfig=$(2CONFIGFILE_$(*))
+
+$(STATEDIR)/ptxdist.build:
+	git submodule update
+	@./p --version 2&> /dev/null || ( \
+		echo "building ptxdist binary in subdir 'ptxdist'."; \
+		cd ptxdist; ./autogen.sh; ./configure --prefix=`pwd`; \
+		make; \
+		cd ..; )
+	@./p --version 2&> /dev/null || (echo "Unable to build ptxdist."; false)
+	@./p --version 2&> $@
+	@if [ x`cat $@` != x`./p print PTXCONF_CONFIGFILE_VERSION` ]; then \
+		echo -n "\nRelease mismatch!\n\n"; \
+		echo "Required ptxdist version:" `./p print PTXCONF_CONFIGFILE_VERSION`; \
+		echo "Compiled ptxdist version:" `cat $@`; \
+		echo -n "\n\nUpdate ptxdist submodule to required version\n"; \
+		echo -n "Use ./build_all_v2.sh update-ptxd\n"; \
+	fi
 
 mkdirs:
 	@mkdir -p $(STATEDIR) $(DISTDIR)
@@ -107,8 +124,23 @@ mkdirs:
 print-%:
 	@echo "$* is \"$($(*))\""
 
+		
+compile-ptxd: mkdirs $(STATEDIR)/ptxdist.build
+
+update-ptxd: mkdirs 
+	-make -C ptxdist distclean
+	rev=`./fixup_ptxconfigs.sh --info`; \
+	cd ptxdist && git checkout ptxdist-$$rev
+	git add ptxdist
+	git citool
+
+clean:
+	-make -C ptxdist distclean
+	-rm -rf platform-*
+	-rm -rf $(STATEDIR) $(DISTDIR) $(PTX_AUTOBUILD_DESTDIR)
+
 help:
-	@echo "Available DPKG targets:"
-	@for i in $(DEBS); do echo $$i; done;
-	@echo "Available tarball targets:"
-	@for i in $(TBZ2S); do echo $$i; done;
+	@echo -e "\nAvailable DPKG targets:\n"
+	@for i in $(sort $(DEBS)); do echo $$i; done;
+	@echo -e "\nAvailable tarball targets:\n"
+	@for i in $(sort $(TBZ2S)); do echo $$i; done;
