@@ -1,0 +1,19 @@
+menuconfig EGLIBC_PORTS
+	prompt "eglibc-ports                 "
+	bool
+
+config EGLIBC_PORTS_VERSION
+	depends on EGLIBC_PORTS
+	string
+	default "${PTXCONF_EGLIBC_VERSION}"
+
+config EGLIBC_PORTS_SVNREV
+	depends on EGLIBC_PORTS
+	string
+	default "${PTXCONF_EGLIBC_SVNREV}"
+
+config EGLIBC_PORTS_SERIES
+	depends on EGLIBC_PORTS
+	string
+	prompt "eglibc-ports patch series file"
+	default "series"

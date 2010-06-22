@@ -34,6 +34,12 @@ comment "----------------------------------"
 
 source "workspace/rules/libc.in"
 
+if LIBC_EGLIBC
+source "workspace/rules/eglibc.in"
+source "workspace/rules/eglibc-ports.in"
+source "workspace/rules/eglibc-linuxthreads.in"
+endif
+
 if LIBC_GLIBC
 source "workspace/rules/glibc.in"
 source "workspace/rules/glibc-ports.in"
@@ -94,6 +100,7 @@ config PREFIX_JAVA
 
 config PREFIX_TCID
 	string	
+	default "gcc-${PTXCONF_CROSS_GCC_VERSION}${PTXCONF_PREFIX_JAVA}-eglibc-${PTXCONF_EGLIBC_VERSION}-binutils-${PTXCONF_CROSS_BINUTILS_VERSION}-kernel-${PTXCONF_KERNEL_HEADERS_VERSION}${PTXCONF_PREFIX_KERNEL}"	if LIBC_EGLIBC
 	default "gcc-${PTXCONF_CROSS_GCC_VERSION}${PTXCONF_PREFIX_JAVA}-glibc-${PTXCONF_GLIBC_VERSION}-binutils-${PTXCONF_CROSS_BINUTILS_VERSION}-kernel-${PTXCONF_KERNEL_HEADERS_VERSION}${PTXCONF_PREFIX_KERNEL}"	if LIBC_GLIBC
 	default "gcc-${PTXCONF_CROSS_GCC_VERSION}${PTXCONF_PREFIX_JAVA}-uclibc-${PTXCONF_UCLIBC_VERSION}-binutils-${PTXCONF_CROSS_BINUTILS_VERSION}-kernel-${PTXCONF_KERNEL_HEADERS_VERSION}${PTXCONF_PREFIX_KERNEL}"	if LIBC_UCLIBC
 	default "gcc-${PTXCONF_CROSS_GCC_VERSION}-newlib-${PTXCONF_NEWLIB_VERSION}-binutils-${PTXCONF_CROSS_BINUTILS_VERSION}"	if LIBC_NEWLIB

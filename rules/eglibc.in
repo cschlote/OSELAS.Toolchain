@@ -1,0 +1,111 @@
+# config for eglibc
+
+config EGLIBC_HEADERS
+	bool
+	select KERNEL_HEADERS
+
+config EGLIBC_CRT
+	bool
+	select CROSS_GCC_FIRST
+
+config EGLIBC_FIRST
+	bool
+	select CROSS_GCC_FIRST
+
+menuconfig EGLIBC
+	bool
+
+	select EGLIBC_CRT
+#	select EGLIBC_PORTS		if EGLIBC_ADDON_NPTL && ( ARCH_ARM || ARCH_MIPS )
+	select EGLIBC_LINUXTHREADS	if EGLIBC_ADDON_LINUXTHREADS
+
+	select TOOLCHAIN_ENABLE_SYSROOT
+	select TOOLCHAIN_DISABLE_MULTILIB
+
+	select CROSS_GCC
+	select CROSS_GCC_ENABLE_CXA_ATEXIT
+	select CROSS_GCC_DISABLE_SJLJ_EXCEPTIONS
+	select CROSS_GCC_ENABLE_LIBSSP
+	select CROSS_GCC_ENABLE_SHARED
+	select CROSS_GCC_THREADS_POSIX
+
+	prompt "eglibc                       "
+
+config EGLIBC_VERSION
+	depends on EGLIBC
+	string
+	prompt "eglibc version"
+	default ""
+	help
+	  Specify the eglibc version here.
+	  Leave empty for eglibc trunk snapshots and enter a timestamp below.
+
+config EGLIBC_SVNREV
+	depends on EGLIBC
+	string
+	prompt "eglibc svn revision"
+	default "HEAD"
+	help
+	  For eglibc branches at a specific revision enter the revision
+	  number here here,
+	  or "HEAD" or if you want try the latest version.
+
+config EGLIBC_SERIES
+	depends on EGLIBC
+	string
+	prompt "eglibc patch series file"
+	default "series"
+
+config EGLIBC_ENABLE_KERNEL
+	depends on EGLIBC
+	string
+	prompt "mininum kernel version"
+	default "2.6.23"
+
+config EGLIBC_CONFIG_EXTRA
+	depends on EGLIBC
+	string
+	prompt "extra configure options"
+	help
+	  Add these extra options to eglibc's configure script.
+
+config EGLIBC_HEADERS_FAKE_CROSS
+	depends on EGLIBC
+	string
+	prompt "fake cross args"
+	default "-D__ARM_EABI__"	if ARCH_ARM
+	default "-DBOOTSTRAP_GCC"	if ARCH_MIPS
+	help
+	  Add these args to fake a crosscompiler during eglibc-header extraction stage.
+
+choice
+	prompt "Thread implementation"
+	depends on EGLIBC
+	default EGLIBC_ADDON_NPTL
+
+	config EGLIBC_ADDON_NOTHREADS
+		bool
+		prompt "no threading support"
+		help
+		  Activate the linuxthreads addon.
+
+	config EGLIBC_ADDON_LINUXTHREADS
+		bool
+		prompt "linuxthreads"
+		help
+		  Activate the linuxthreads addon.
+
+	config EGLIBC_ADDON_NPTL
+		bool
+		prompt "nptl"
+		select EGLIBC_TLS
+		help
+		  Activate the NPTL addon.
+endchoice
+
+config EGLIBC_TLS
+	depends on EGLIBC
+	bool
+	prompt "enable TLS"
+	help
+	  Activate Thread Local Storage.
