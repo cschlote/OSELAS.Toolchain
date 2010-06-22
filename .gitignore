@@ -1,7 +1,9 @@
+selected_ptxconfig
 logfile
 p
 *~
 *.old
 dist/*
+gstate/*
 inst/*
 platform-*
