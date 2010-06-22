@@ -1,0 +1,127 @@
+2005-02-08  Jakub Jelinek  <jakub@redhat.com>
+
+	* src/alpha/osf.S: Add .note.GNU-stack on Linux.
+	* src/s390/sysv.S: Likewise.
+	* src/powerpc/linux64.S: Likewise.
+	* src/powerpc/linux64_closure.S: Likewise.
+	* src/powerpc/ppc_closure.S: Likewise.
+	* src/powerpc/sysv.S: Likewise.
+	* src/x86/unix64.S: Likewise.
+	* src/x86/sysv.S: Likewise.
+	* src/sparc/v8.S: Likewise.
+	* src/sparc/v9.S: Likewise.
+	* src/m68k/sysv.S: Likewise.
+	* src/ia64/unix.S: Likewise.
+	* src/arm/sysv.S: Likewise.
+
+	* ia64_save_regs_in_stack.s: Moved to...
+	* ia64_save_regs_in_stack.S: ... this.  Add .note.GNU-stack
+	on Linux.
+
+---
+ boehm-gc/ia64_save_regs_in_stack.S   |   15 +++++++++++++++
+ boehm-gc/ia64_save_regs_in_stack.s   |   12 ------------
+ libffi/src/powerpc/linux64.S         |    4 ++++
+ libffi/src/powerpc/linux64_closure.S |    4 ++++
+ libffi/src/powerpc/ppc_closure.S     |    4 ++++
+ libffi/src/powerpc/sysv.S            |    4 ++++
+ libffi/src/sparc/v9.S                |    4 ++++
+ 7 files changed, 35 insertions(+), 12 deletions(-)
+
+Index: gcc-4.5.0/boehm-gc/ia64_save_regs_in_stack.S
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ gcc-4.5.0/boehm-gc/ia64_save_regs_in_stack.S	2010-02-09 16:13:45.000000000 +0100
+@@ -0,0 +1,15 @@
++        .text
++        .align 16
++        .global GC_save_regs_in_stack
++        .proc GC_save_regs_in_stack
++GC_save_regs_in_stack:
++        .bodyfoo.mpg
++        flushrs
++        ;;
++        mov r8=ar.bsp
++        br.ret.sptk.few rp
++        .endp GC_save_regs_in_stack
++
++#ifdef __linux__
++	.section .note.GNU-stack,"",@progbits
++#endif
+Index: gcc-4.5.0/boehm-gc/ia64_save_regs_in_stack.s
+===================================================================
+--- gcc-4.5.0.orig/boehm-gc/ia64_save_regs_in_stack.s	2001-10-15 06:57:59.000000000 +0200
++++ /dev/null	1970-01-01 00:00:00.000000000 +0000
+@@ -1,12 +0,0 @@
+-        .text
+-        .align 16
+-        .global GC_save_regs_in_stack
+-        .proc GC_save_regs_in_stack
+-GC_save_regs_in_stack:
+-        .body
+-        flushrs
+-        ;;
+-        mov r8=ar.bsp
+-        br.ret.sptk.few rp
+-        .endp GC_save_regs_in_stack
+-
+Index: gcc-4.5.0/libffi/src/powerpc/linux64.S
+===================================================================
+--- gcc-4.5.0.orig/libffi/src/powerpc/linux64.S	2009-06-04 17:43:03.000000000 +0200
++++ gcc-4.5.0/libffi/src/powerpc/linux64.S	2010-02-09 16:13:45.000000000 +0100
+@@ -185,3 +185,7 @@
+ #if defined __ELF__ && defined __linux__
+ 	.section	.note.GNU-stack,"",@progbits
+ #endif
++
++#if defined __ELF__ && defined __linux__
++	.section	.note.GNU-stack,"",@progbits
++#endif
+Index: gcc-4.5.0/libffi/src/powerpc/linux64_closure.S
+===================================================================
+--- gcc-4.5.0.orig/libffi/src/powerpc/linux64_closure.S	2009-06-04 17:43:03.000000000 +0200
++++ gcc-4.5.0/libffi/src/powerpc/linux64_closure.S	2010-02-09 16:13:45.000000000 +0100
+@@ -234,3 +234,7 @@
+ #if defined __ELF__ && defined __linux__
+ 	.section	.note.GNU-stack,"",@progbits
+ #endif
++
++#if defined __ELF__ && defined __linux__
++	.section	.note.GNU-stack,"",@progbits
++#endif
+Index: gcc-4.5.0/libffi/src/powerpc/ppc_closure.S
+===================================================================
+--- gcc-4.5.0.orig/libffi/src/powerpc/ppc_closure.S	2009-06-04 17:43:03.000000000 +0200
++++ gcc-4.5.0/libffi/src/powerpc/ppc_closure.S	2010-02-09 16:13:45.000000000 +0100
+@@ -325,3 +325,7 @@
+ #if defined __ELF__ && defined __linux__
+ 	.section	.note.GNU-stack,"",@progbits
+ #endif
++
++#if defined __ELF__ && defined __linux__
++	.section	.note.GNU-stack,"",@progbits
++#endif
+Index: gcc-4.5.0/libffi/src/powerpc/sysv.S
+===================================================================
+--- gcc-4.5.0.orig/libffi/src/powerpc/sysv.S	2009-06-16 19:55:39.000000000 +0200
++++ gcc-4.5.0/libffi/src/powerpc/sysv.S	2010-02-09 16:13:45.000000000 +0100
+@@ -217,3 +217,7 @@
+ #if defined __ELF__ && defined __linux__
+ 	.section	.note.GNU-stack,"",@progbits
+ #endif
++
++#if defined __ELF__ && defined __linux__
++	.section	.note.GNU-stack,"",@progbits
++#endif
+Index: gcc-4.5.0/libffi/src/sparc/v9.S
+===================================================================
+--- gcc-4.5.0.orig/libffi/src/sparc/v9.S	2009-06-04 17:43:03.000000000 +0200
++++ gcc-4.5.0/libffi/src/sparc/v9.S	2010-02-09 16:13:45.000000000 +0100
+@@ -305,3 +305,7 @@
+ #ifdef __linux__
+ 	.section	.note.GNU-stack,"",@progbits
+ #endif
++
++#ifdef __linux__
++	.section	.note.GNU-stack,"",@progbits
++#endif
