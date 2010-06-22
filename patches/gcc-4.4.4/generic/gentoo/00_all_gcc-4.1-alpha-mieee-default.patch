@@ -12,11 +12,11 @@ Patch by Mike Frysinger <vapier@gentoo.org>
  gcc/config/alpha/alpha.opt |    2 +-
  2 files changed, 3 insertions(+), 1 deletion(-)
 
-Index: gcc-4.4.0/gcc/config/alpha/alpha.h
+Index: gcc-4.4.1/gcc/config/alpha/alpha.h
 ===================================================================
---- gcc-4.4.0.orig/gcc/config/alpha/alpha.h
-+++ gcc-4.4.0/gcc/config/alpha/alpha.h
-@@ -95,6 +95,8 @@ along with GCC; see the file COPYING3.  
+--- gcc-4.4.1.orig/gcc/config/alpha/alpha.h	2009-11-19 13:43:48.000000000 +0100
++++ gcc-4.4.1/gcc/config/alpha/alpha.h	2009-11-19 13:45:36.000000000 +0100
+@@ -95,6 +95,8 @@
    while (0)
  #endif
  
@@ -25,11 +25,11 @@ Index: gcc-4.4.0/gcc/config/alpha/alpha.h
  #define WORD_SWITCH_TAKES_ARG(STR)		\
   (!strcmp (STR, "rpath") || DEFAULT_WORD_SWITCH_TAKES_ARG(STR))
  
-Index: gcc-4.4.0/gcc/config/alpha/alpha.opt
+Index: gcc-4.4.1/gcc/config/alpha/alpha.opt
 ===================================================================
---- gcc-4.4.0.orig/gcc/config/alpha/alpha.opt
-+++ gcc-4.4.0/gcc/config/alpha/alpha.opt
-@@ -39,7 +39,7 @@ Target RejectNegative Mask(IEEE_CONFORMA
+--- gcc-4.4.1.orig/gcc/config/alpha/alpha.opt	2009-11-19 13:43:48.000000000 +0100
++++ gcc-4.4.1/gcc/config/alpha/alpha.opt	2009-11-19 13:45:36.000000000 +0100
+@@ -39,7 +39,7 @@
  Request IEEE-conformant math library routines (OSF/1)
  
  mieee

@@ -11,11 +11,11 @@ http://gcc.gnu.org/PR34571
  gcc/config/alpha/alpha.c |    3 +--
  1 file changed, 1 insertion(+), 2 deletions(-)
 
-Index: gcc-4.4.0/gcc/config/alpha/alpha.c
+Index: gcc-4.4.1/gcc/config/alpha/alpha.c
 ===================================================================
---- gcc-4.4.0.orig/gcc/config/alpha/alpha.c
-+++ gcc-4.4.0/gcc/config/alpha/alpha.c
-@@ -1119,8 +1119,7 @@ alpha_legitimize_address (rtx x, rtx scr
+--- gcc-4.4.1.orig/gcc/config/alpha/alpha.c	2009-11-19 13:43:48.000000000 +0100
++++ gcc-4.4.1/gcc/config/alpha/alpha.c	2009-11-19 13:45:39.000000000 +0100
+@@ -1119,8 +1119,7 @@
  static bool
  alpha_cannot_force_const_mem (rtx x)
  {

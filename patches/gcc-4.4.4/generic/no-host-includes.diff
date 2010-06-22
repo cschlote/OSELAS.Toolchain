@@ -15,11 +15,11 @@
 # gcc/incpath.c |   28 ++++++++++++++++++++++++++++
 # 1 file changed, 28 insertions(+)
 #
-Index: gcc-4.4.0/gcc/incpath.c
+Index: gcc-4.4.1/gcc/incpath.c
 ===================================================================
---- gcc-4.4.0.orig/gcc/incpath.c
-+++ gcc-4.4.0/gcc/incpath.c
-@@ -417,6 +417,34 @@ add_path (char *path, int chain, int cxx
+--- gcc-4.4.1.orig/gcc/incpath.c	2009-11-19 13:43:49.000000000 +0100
++++ gcc-4.4.1/gcc/incpath.c	2009-11-19 13:45:34.000000000 +0100
+@@ -417,6 +417,34 @@
    p->construct = 0;
    p->user_supplied_p = user_supplied_p;
  

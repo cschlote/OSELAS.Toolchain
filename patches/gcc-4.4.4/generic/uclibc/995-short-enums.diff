@@ -4,11 +4,11 @@ see gcc PR34205
  gcc/rtl.h      |    4 +++-
  2 files changed, 4 insertions(+), 1 deletion(-)
 
-Index: gcc-4.4.0/gcc/rtl.h
+Index: gcc-4.4.1/gcc/rtl.h
 ===================================================================
---- gcc-4.4.0.orig/gcc/rtl.h
-+++ gcc-4.4.0/gcc/rtl.h
-@@ -48,9 +48,11 @@ enum rtx_code  {
+--- gcc-4.4.1.orig/gcc/rtl.h	2009-11-19 13:43:48.000000000 +0100
++++ gcc-4.4.1/gcc/rtl.h	2009-11-19 13:45:36.000000000 +0100
+@@ -48,9 +48,11 @@
  #include "rtl.def"		/* rtl expressions are documented here */
  #undef DEF_RTL_EXPR
  
@@ -21,11 +21,11 @@ Index: gcc-4.4.0/gcc/rtl.h
  
  #define NUM_RTX_CODE ((int) LAST_AND_UNUSED_RTX_CODE)
  				/* The cast here, saves many elsewhere.  */
-Index: gcc-4.4.0/gcc/c-common.h
+Index: gcc-4.4.1/gcc/c-common.h
 ===================================================================
---- gcc-4.4.0.orig/gcc/c-common.h
-+++ gcc-4.4.0/gcc/c-common.h
-@@ -130,6 +130,7 @@ enum rid
+--- gcc-4.4.1.orig/gcc/c-common.h	2009-11-19 13:43:48.000000000 +0100
++++ gcc-4.4.1/gcc/c-common.h	2009-11-19 13:45:36.000000000 +0100
+@@ -130,6 +130,7 @@
    RID_LAST_AT = RID_AT_IMPLEMENTATION,
    RID_FIRST_PQ = RID_IN,
    RID_LAST_PQ = RID_ONEWAY

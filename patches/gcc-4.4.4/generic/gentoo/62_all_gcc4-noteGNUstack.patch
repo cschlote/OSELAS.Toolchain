@@ -29,10 +29,10 @@
  libffi/src/sparc/v9.S                |    4 ++++
  8 files changed, 39 insertions(+), 12 deletions(-)
 
-Index: gcc-4.4.0/boehm-gc/ia64_save_regs_in_stack.S
+Index: gcc-4.4.1/boehm-gc/ia64_save_regs_in_stack.S
 ===================================================================
---- /dev/null
-+++ gcc-4.4.0/boehm-gc/ia64_save_regs_in_stack.S
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ gcc-4.4.1/boehm-gc/ia64_save_regs_in_stack.S	2009-11-19 13:45:38.000000000 +0100
 @@ -0,0 +1,15 @@
 +        .text
 +        .align 16
@@ -49,10 +49,10 @@ Index: gcc-4.4.0/boehm-gc/ia64_save_regs_in_stack.S
 +#ifdef __linux__
 +	.section .note.GNU-stack,"",@progbits
 +#endif
-Index: gcc-4.4.0/boehm-gc/ia64_save_regs_in_stack.s
+Index: gcc-4.4.1/boehm-gc/ia64_save_regs_in_stack.s
 ===================================================================
---- gcc-4.4.0.orig/boehm-gc/ia64_save_regs_in_stack.s
-+++ /dev/null
+--- gcc-4.4.1.orig/boehm-gc/ia64_save_regs_in_stack.s	2009-11-19 13:43:48.000000000 +0100
++++ /dev/null	1970-01-01 00:00:00.000000000 +0000
 @@ -1,12 +0,0 @@
 -        .text
 -        .align 16
@@ -66,11 +66,11 @@ Index: gcc-4.4.0/boehm-gc/ia64_save_regs_in_stack.s
 -        br.ret.sptk.few rp
 -        .endp GC_save_regs_in_stack
 -
-Index: gcc-4.4.0/libffi/src/ia64/unix.S
+Index: gcc-4.4.1/libffi/src/ia64/unix.S
 ===================================================================
---- gcc-4.4.0.orig/libffi/src/ia64/unix.S
-+++ gcc-4.4.0/libffi/src/ia64/unix.S
-@@ -553,3 +553,7 @@ ffi_closure_unix:
+--- gcc-4.4.1.orig/libffi/src/ia64/unix.S	2009-11-19 13:43:48.000000000 +0100
++++ gcc-4.4.1/libffi/src/ia64/unix.S	2009-11-19 13:45:38.000000000 +0100
+@@ -553,3 +553,7 @@
  	data8	@pcrel(.Lld_hfa_float)		// FFI_IA64_TYPE_HFA_FLOAT
  	data8	@pcrel(.Lld_hfa_double)		// FFI_IA64_TYPE_HFA_DOUBLE
  	data8	@pcrel(.Lld_hfa_ldouble)	// FFI_IA64_TYPE_HFA_LDOUBLE
@@ -78,11 +78,11 @@ Index: gcc-4.4.0/libffi/src/ia64/unix.S
 +#if defined __ELF__ && defined __linux__
 +	.section	.note.GNU-stack,"",@progbits
 +#endif
-Index: gcc-4.4.0/libffi/src/powerpc/linux64.S
+Index: gcc-4.4.1/libffi/src/powerpc/linux64.S
 ===================================================================
---- gcc-4.4.0.orig/libffi/src/powerpc/linux64.S
-+++ gcc-4.4.0/libffi/src/powerpc/linux64.S
-@@ -179,3 +179,7 @@ ffi_call_LINUX64:
+--- gcc-4.4.1.orig/libffi/src/powerpc/linux64.S	2009-11-19 13:43:48.000000000 +0100
++++ gcc-4.4.1/libffi/src/powerpc/linux64.S	2009-11-19 13:45:38.000000000 +0100
+@@ -179,3 +179,7 @@
  	.align 3
  .LEFDE1:
  #endif
@@ -90,11 +90,11 @@ Index: gcc-4.4.0/libffi/src/powerpc/linux64.S
 +#if defined __ELF__ && defined __linux__
 +	.section	.note.GNU-stack,"",@progbits
 +#endif
-Index: gcc-4.4.0/libffi/src/powerpc/linux64_closure.S
+Index: gcc-4.4.1/libffi/src/powerpc/linux64_closure.S
 ===================================================================
---- gcc-4.4.0.orig/libffi/src/powerpc/linux64_closure.S
-+++ gcc-4.4.0/libffi/src/powerpc/linux64_closure.S
-@@ -204,3 +204,7 @@ ffi_closure_LINUX64:
+--- gcc-4.4.1.orig/libffi/src/powerpc/linux64_closure.S	2009-11-19 13:43:48.000000000 +0100
++++ gcc-4.4.1/libffi/src/powerpc/linux64_closure.S	2009-11-19 13:45:38.000000000 +0100
+@@ -204,3 +204,7 @@
  	.align 3
  .LEFDE1:
  #endif
@@ -102,11 +102,11 @@ Index: gcc-4.4.0/libffi/src/powerpc/linux64_closure.S
 +#if defined __ELF__ && defined __linux__
 +	.section	.note.GNU-stack,"",@progbits
 +#endif
-Index: gcc-4.4.0/libffi/src/powerpc/ppc_closure.S
+Index: gcc-4.4.1/libffi/src/powerpc/ppc_closure.S
 ===================================================================
---- gcc-4.4.0.orig/libffi/src/powerpc/ppc_closure.S
-+++ gcc-4.4.0/libffi/src/powerpc/ppc_closure.S
-@@ -299,3 +299,7 @@ END(ffi_closure_SYSV)
+--- gcc-4.4.1.orig/libffi/src/powerpc/ppc_closure.S	2009-11-19 13:43:48.000000000 +0100
++++ gcc-4.4.1/libffi/src/powerpc/ppc_closure.S	2009-11-19 13:45:38.000000000 +0100
+@@ -299,3 +299,7 @@
  #if defined __ELF__ && defined __linux__
  	.section	.note.GNU-stack,"",@progbits
  #endif
@@ -114,11 +114,11 @@ Index: gcc-4.4.0/libffi/src/powerpc/ppc_closure.S
 +#if defined __ELF__ && defined __linux__
 +	.section	.note.GNU-stack,"",@progbits
 +#endif
-Index: gcc-4.4.0/libffi/src/powerpc/sysv.S
+Index: gcc-4.4.1/libffi/src/powerpc/sysv.S
 ===================================================================
---- gcc-4.4.0.orig/libffi/src/powerpc/sysv.S
-+++ gcc-4.4.0/libffi/src/powerpc/sysv.S
-@@ -227,3 +227,7 @@ END(ffi_call_SYSV)
+--- gcc-4.4.1.orig/libffi/src/powerpc/sysv.S	2009-11-19 13:43:48.000000000 +0100
++++ gcc-4.4.1/libffi/src/powerpc/sysv.S	2009-11-19 13:45:38.000000000 +0100
+@@ -227,3 +227,7 @@
  #if defined __ELF__ && defined __linux__
  	.section	.note.GNU-stack,"",@progbits
  #endif
@@ -126,11 +126,11 @@ Index: gcc-4.4.0/libffi/src/powerpc/sysv.S
 +#if defined __ELF__ && defined __linux__
 +	.section	.note.GNU-stack,"",@progbits
 +#endif
-Index: gcc-4.4.0/libffi/src/sparc/v9.S
+Index: gcc-4.4.1/libffi/src/sparc/v9.S
 ===================================================================
---- gcc-4.4.0.orig/libffi/src/sparc/v9.S
-+++ gcc-4.4.0/libffi/src/sparc/v9.S
-@@ -304,3 +304,7 @@ longdouble1:
+--- gcc-4.4.1.orig/libffi/src/sparc/v9.S	2009-11-19 13:43:48.000000000 +0100
++++ gcc-4.4.1/libffi/src/sparc/v9.S	2009-11-19 13:45:38.000000000 +0100
+@@ -304,3 +304,7 @@
  #ifdef __linux__
  	.section	.note.GNU-stack,"",@progbits
  #endif

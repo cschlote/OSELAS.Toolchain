@@ -2,11 +2,11 @@
  gcc/config/sparc/freebsd.h |   19 ++++++++++++++++---
  1 file changed, 16 insertions(+), 3 deletions(-)
 
-Index: gcc-4.4.0/gcc/config/sparc/freebsd.h
+Index: gcc-4.4.1/gcc/config/sparc/freebsd.h
 ===================================================================
---- gcc-4.4.0.orig/gcc/config/sparc/freebsd.h
-+++ gcc-4.4.0/gcc/config/sparc/freebsd.h
-@@ -25,9 +25,22 @@ along with GCC; see the file COPYING3.  
+--- gcc-4.4.1.orig/gcc/config/sparc/freebsd.h	2009-11-19 13:43:48.000000000 +0100
++++ gcc-4.4.1/gcc/config/sparc/freebsd.h	2009-11-19 13:45:37.000000000 +0100
+@@ -25,9 +25,22 @@
  /* FreeBSD needs the platform name (sparc64) defined.
     Emacs needs to know if the arch is 64 or 32-bits.  */
  

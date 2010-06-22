@@ -5,11 +5,11 @@ install libstdc++_pic.a if we have pic objs
  libstdc++-v3/src/Makefile.in |   12 ++++++++++--
  2 files changed, 17 insertions(+), 2 deletions(-)
 
-Index: gcc-4.4.0/libstdc++-v3/src/Makefile.am
+Index: gcc-4.4.1/libstdc++-v3/src/Makefile.am
 ===================================================================
---- gcc-4.4.0.orig/libstdc++-v3/src/Makefile.am
-+++ gcc-4.4.0/libstdc++-v3/src/Makefile.am
-@@ -351,6 +351,13 @@ CXXLINK = $(LIBTOOL) --tag CXX --mode=li
+--- gcc-4.4.1.orig/libstdc++-v3/src/Makefile.am	2009-11-19 13:43:48.000000000 +0100
++++ gcc-4.4.1/libstdc++-v3/src/Makefile.am	2009-11-19 13:45:38.000000000 +0100
+@@ -351,6 +351,13 @@
  	  $(OPT_LDFLAGS) $(SECTION_LDFLAGS) $(AM_CXXFLAGS) $(LTLDFLAGS) -o $@
  
  
@@ -23,11 +23,11 @@ Index: gcc-4.4.0/libstdc++-v3/src/Makefile.am
  # Added bits to build debug library.
  if GLIBCXX_BUILD_DEBUG
  all-local: build_debug
-Index: gcc-4.4.0/libstdc++-v3/src/Makefile.in
+Index: gcc-4.4.1/libstdc++-v3/src/Makefile.in
 ===================================================================
---- gcc-4.4.0.orig/libstdc++-v3/src/Makefile.in
-+++ gcc-4.4.0/libstdc++-v3/src/Makefile.in
-@@ -726,7 +726,7 @@ info-am:
+--- gcc-4.4.1.orig/libstdc++-v3/src/Makefile.in	2009-11-19 13:43:48.000000000 +0100
++++ gcc-4.4.1/libstdc++-v3/src/Makefile.in	2009-11-19 13:45:38.000000000 +0100
+@@ -726,7 +726,7 @@
  
  install-data-am: install-data-local
  
@@ -36,7 +36,7 @@ Index: gcc-4.4.0/libstdc++-v3/src/Makefile.in
  
  install-info: install-info-am
  
-@@ -765,7 +765,7 @@ uninstall-am: uninstall-info-am uninstal
+@@ -765,7 +765,7 @@
  	maintainer-clean-generic mostlyclean mostlyclean-compile \
  	mostlyclean-generic mostlyclean-libtool pdf pdf-am ps ps-am \
  	tags uninstall uninstall-am uninstall-info-am \
@@ -45,7 +45,7 @@ Index: gcc-4.4.0/libstdc++-v3/src/Makefile.in
  
  
  # Symbol versioning for shared libraries.
-@@ -942,6 +942,14 @@ build_debug: stamp-debug
+@@ -942,6 +942,14 @@
  install_debug:
  	(cd ${debugdir} && $(MAKE) \
  	toolexeclibdir=$(glibcxx_toolexeclibdir)/debug install)

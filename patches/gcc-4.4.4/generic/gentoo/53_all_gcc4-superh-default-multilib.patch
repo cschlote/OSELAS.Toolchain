@@ -14,11 +14,11 @@ http://bugs.gentoo.org/140205
  gcc/config.gcc |    2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-Index: gcc-4.4.0/gcc/config.gcc
+Index: gcc-4.4.1/gcc/config.gcc
 ===================================================================
---- gcc-4.4.0.orig/gcc/config.gcc
-+++ gcc-4.4.0/gcc/config.gcc
-@@ -2121,7 +2121,7 @@ sh-*-symbianelf* | sh[12346l]*-*-symbian
+--- gcc-4.4.1.orig/gcc/config.gcc	2009-11-19 13:43:48.000000000 +0100
++++ gcc-4.4.1/gcc/config.gcc	2009-11-19 13:45:38.000000000 +0100
+@@ -2121,7 +2121,7 @@
  	if test x${sh_multilibs} = x ; then
  		case ${target} in
  		sh64-superh-linux* | \

@@ -2,11 +2,11 @@
  libstdc++-v3/include/c_global/cstdio |    2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-Index: gcc-4.4.0/libstdc++-v3/include/c_global/cstdio
+Index: gcc-4.4.1/libstdc++-v3/include/c_global/cstdio
 ===================================================================
---- gcc-4.4.0.orig/libstdc++-v3/include/c_global/cstdio
-+++ gcc-4.4.0/libstdc++-v3/include/c_global/cstdio
-@@ -139,7 +139,7 @@ _GLIBCXX_BEGIN_NAMESPACE(std)
+--- gcc-4.4.1.orig/libstdc++-v3/include/c_global/cstdio	2009-11-19 13:43:48.000000000 +0100
++++ gcc-4.4.1/libstdc++-v3/include/c_global/cstdio	2009-11-19 13:45:35.000000000 +0100
+@@ -139,7 +139,7 @@
  
  _GLIBCXX_END_NAMESPACE
  

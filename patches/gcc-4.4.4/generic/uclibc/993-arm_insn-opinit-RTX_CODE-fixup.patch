@@ -11,11 +11,11 @@ gcc/ChangeLog
  gcc/genopinit.c             |    1 +
  2 files changed, 2 insertions(+), 1 deletion(-)
 
-Index: gcc-4.4.0/gcc/config/arm/arm-protos.h
+Index: gcc-4.4.1/gcc/config/arm/arm-protos.h
 ===================================================================
---- gcc-4.4.0.orig/gcc/config/arm/arm-protos.h
-+++ gcc-4.4.0/gcc/config/arm/arm-protos.h
-@@ -43,10 +43,10 @@ extern unsigned int arm_dbx_register_num
+--- gcc-4.4.1.orig/gcc/config/arm/arm-protos.h	2009-11-19 13:43:48.000000000 +0100
++++ gcc-4.4.1/gcc/config/arm/arm-protos.h	2009-11-19 13:45:36.000000000 +0100
+@@ -43,10 +43,10 @@
  extern void arm_output_fn_unwind (FILE *, bool);
    
  
@@ -27,11 +27,11 @@ Index: gcc-4.4.0/gcc/config/arm/arm-protos.h
  extern int arm_split_constant (RTX_CODE, enum machine_mode, rtx,
  			       HOST_WIDE_INT, rtx, rtx, int);
  extern RTX_CODE arm_canonicalize_comparison (RTX_CODE, enum machine_mode,
-Index: gcc-4.4.0/gcc/genopinit.c
+Index: gcc-4.4.1/gcc/genopinit.c
 ===================================================================
---- gcc-4.4.0.orig/gcc/genopinit.c
-+++ gcc-4.4.0/gcc/genopinit.c
-@@ -493,6 +493,7 @@ from the machine description file `md'. 
+--- gcc-4.4.1.orig/gcc/genopinit.c	2009-11-19 13:43:48.000000000 +0100
++++ gcc-4.4.1/gcc/genopinit.c	2009-11-19 13:45:36.000000000 +0100
+@@ -493,6 +493,7 @@
    printf ("#include \"expr.h\"\n");
    printf ("#include \"optabs.h\"\n");
    printf ("#include \"reload.h\"\n\n");
