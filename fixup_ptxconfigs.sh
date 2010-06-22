@@ -192,12 +192,17 @@ fixup()
 	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=soft	--with-fpu=vfp	--with-cpu=cortex-m3				--with-mode=thumb"
 	    ;;
 
-
 	i586-unknown-linux-gnu)
 	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-arch=i586"
 	    ;;
 	i686-unknown-linux-gnu)
 	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-arch=i686"
+	    ;;
+	i686-atom-linux-gnu)
+	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-arch=atom"
+	    ;;
+	i686-geode-linux-gnu)
+	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-arch=geode"
 	    ;;
 
 	m68k-linux-gnu)
@@ -209,6 +214,7 @@ fixup()
 	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=soft"
 	    PTXCONF_GLIBC_CONFIG_EXTRA="--without-fp"
 	    ;;
+
 	powerpc-603e-linux-gnu)
 	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-cpu=603e	--disable-altivec"
 	    ;;
