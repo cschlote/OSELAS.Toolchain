@@ -2,6 +2,9 @@
 
 ARGS_FULL=("${@}")
 
+# version
+PTXCONF_CONFIGFILE_VERSION="2010.01.0"
+ 
 get_replace()
 {
     local var="${1}"
@@ -19,7 +22,6 @@ fixup()
     local config="${1}"
 
     # version
-    PTXCONF_CONFIGFILE_VERSION="1.99.svn"
     PTXCONF_PROJECT="${PWD}"
     PTXCONF_PROJECT="${PTXCONF_PROJECT##*/}"
 
@@ -312,11 +314,16 @@ update()
     local config_new="${config/${component}-${from}/${component}-${to}}"
 
     if [ "${config}" != "${config_new}" ]; then
-	svn mv "${config}" "${config_new}" || return $?
+	git mv "${config}" "${config_new}" || return $?
 	fixup "${config_new}"
     fi
 }
 
+info ()
+{
+	echo $PTXCONF_CONFIGFILE_VERSION
+	exit 0
+}
 
 #
 # main()
@@ -332,6 +339,11 @@ while [ ${#} -ne 0 ]; do
     shift
 
     case "${arg}" in
+    --info)
+		action=info
+		action_args="${1}"
+		shift
+		;;
 	--update)
 	    action=update
 	    action_args="${1}"
