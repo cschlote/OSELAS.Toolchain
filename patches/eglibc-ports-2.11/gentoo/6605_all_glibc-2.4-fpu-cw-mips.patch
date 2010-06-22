@@ -1,0 +1,19 @@
+http://sourceware.org/ml/libc-alpha/2002-10/msg00392.html
+
+---
+ sysdeps/mips/fpu_control.h |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Index: eglibc-ports-2.10/sysdeps/mips/fpu_control.h
+===================================================================
+--- eglibc-ports-2.10.orig/sysdeps/mips/fpu_control.h	2008-08-19 19:24:09.000000000 +0200
++++ eglibc-ports-2.10/sysdeps/mips/fpu_control.h	2009-12-01 13:00:57.000000000 +0100
+@@ -86,7 +86,7 @@
+ #define _FPU_RC_UP      0x2
+ #define _FPU_RC_DOWN    0x3
+ 
+-#define _FPU_RESERVED 0xfe3c0000  /* Reserved bits in cw */
++#define _FPU_RESERVED 0xfebc0000  /* Reserved bits in cw */
+ 
+ 
+ /* The fdlibm code requires strict IEEE double precision arithmetic,
