@@ -1,0 +1,36 @@
+ripped from SuSE
+
+if /etc/resolv.conf is updated, then make sure applications
+already running get the updated information.
+
+http://bugs.gentoo.org/177416
+
+---
+ resolv/res_libc.c |   14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
+Index: eglibc-2.11/resolv/res_libc.c
+===================================================================
+--- eglibc-2.11.orig/resolv/res_libc.c	2009-10-18 20:08:37.000000000 +0200
++++ eglibc-2.11/resolv/res_libc.c	2010-02-08 18:28:48.000000000 +0100
+@@ -99,6 +99,20 @@
+ 	int ret;
+ 
+ 	if (resp->options & RES_INIT) {
++		static time_t last_mtime, last_check;
++		time_t now;
++		struct stat statbuf;
++
++		time (&now);
++		if (now != last_check) {
++			last_check = now;
++			if (stat (_PATH_RESCONF, &statbuf) == 0 && last_mtime != statbuf.st_mtime) {
++				last_mtime = statbuf.st_mtime;
++				atomicinclock (lock);
++				atomicinc (__res_initstamp);
++				atomicincunlock (lock);
++			}
++		}
+ 		ret = stat (_PATH_RESCONF, &statbuf);
+ 		if ((__res_initstamp != resp->_u._ext.initstamp)
+ 		    || ((ret == 0) && (last_mtime != statbuf.st_mtime))) {

@@ -1,0 +1,91 @@
+workaround strict aliasing warnings on individual files rather than
+forcing the whole build with -fno-strict-aliasing
+
+http://bugs.gentoo.org/155906
+
+note that we leave the logout.c and logwtmp.c warnings alone as the
+code path that invokes the warning should not be executed when the
+warning is applicable.
+
+---
+ libio/Makefile  |    4 ++--
+ nis/Makefile    |    3 +++
+ nptl/Makefile   |    1 +
+ nss/Makefile    |    2 ++
+ sunrpc/Makefile |    2 +-
+ 5 files changed, 9 insertions(+), 3 deletions(-)
+
+Index: eglibc-2.10/libio/Makefile
+===================================================================
+--- eglibc-2.10.orig/libio/Makefile	2009-12-01 13:40:19.000000000 +0100
++++ eglibc-2.10/libio/Makefile	2009-12-01 13:40:31.000000000 +0100
+@@ -113,7 +113,7 @@
+ CFLAGS-ftello64.c = $(exceptions)
+ CFLAGS-ftello.c = $(exceptions)
+ CFLAGS-fwide.c = $(exceptions)
+-CFLAGS-genops.c = $(exceptions)
++CFLAGS-genops.c = $(exceptions) -fno-strict-aliasing
+ CFLAGS-getc.c = $(exceptions)
+ CFLAGS-getchar.c = $(exceptions)
+ CFLAGS-getwc.c = $(exceptions)
+@@ -155,7 +155,7 @@
+ CFLAGS-putwchar.c = $(exceptions)
+ CFLAGS-rewind.c = $(exceptions)
+ CFLAGS-wfileops.c = $(exceptions)
+-CFLAGS-wgenops.c = $(exceptions)
++CFLAGS-wgenops.c = $(exceptions) -fno-strict-aliasing
+ CFLAGS-oldiofopen.c = $(exceptions)
+ CFLAGS-iofopen.c = $(exceptions)
+ CFLAGS-iofopen64.c = $(exceptions)
+Index: eglibc-2.10/nis/Makefile
+===================================================================
+--- eglibc-2.10.orig/nis/Makefile	2009-12-01 13:40:19.000000000 +0100
++++ eglibc-2.10/nis/Makefile	2009-12-01 13:40:31.000000000 +0100
+@@ -76,6 +76,9 @@
+ 			   nss-nisplus nisplus-initgroups
+ libnss_nisplus-inhibit-o = $(filter-out .os,$(object-suffixes))
+ 
++CFLAGS-nis_xdr.c += -fno-strict-aliasing
++CFLAGS-yp_xdr.c += -fno-strict-aliasing
++
+ include ../Rules
+ 
+ 
+Index: eglibc-2.10/nptl/Makefile
+===================================================================
+--- eglibc-2.10.orig/nptl/Makefile	2009-12-01 13:40:19.000000000 +0100
++++ eglibc-2.10/nptl/Makefile	2009-12-01 13:40:31.000000000 +0100
+@@ -197,6 +197,7 @@
+ 
+ CFLAGS-pt-system.c = -fexceptions
+ 
++CFLAGS-unwind-dw2.c += -fno-strict-aliasing
+ 
+ tests = tst-typesizes \
+ 	tst-attr1 tst-attr2 tst-attr3 \
+Index: eglibc-2.10/nss/Makefile
+===================================================================
+--- eglibc-2.10.orig/nss/Makefile	2009-12-01 13:40:19.000000000 +0100
++++ eglibc-2.10/nss/Makefile	2009-12-01 13:40:31.000000000 +0100
+@@ -118,6 +118,8 @@
+ 	-DFIXED_FUNCTIONS='"$(OPTION_EGLIBC_NSSWITCH_FIXED_FUNCTIONS)"'
+ endif
+ 
++CFLAGS-nsswitch.c += -fno-strict-aliasing
++
+ include ../Rules
+ 
+ 
+Index: eglibc-2.10/sunrpc/Makefile
+===================================================================
+--- eglibc-2.10.orig/sunrpc/Makefile	2009-12-01 13:40:19.000000000 +0100
++++ eglibc-2.10/sunrpc/Makefile	2009-12-01 13:40:31.000000000 +0100
+@@ -134,7 +134,7 @@
+ CFLAGS-clnt_perr.c = -fexceptions
+ CFLAGS-openchild.c = -fexceptions
+ 
+-CPPFLAGS += -D_RPC_THREAD_SAFE_
++CPPFLAGS += -D_RPC_THREAD_SAFE_ -fno-strict-aliasing
+ 
+ include ../Rules
+ 
