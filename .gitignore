@@ -1,0 +1,8 @@
+selected_ptxconfig
+logfile
+*~
+*.old
+dist/*
+gstate/*
+inst/*
+platform-*
