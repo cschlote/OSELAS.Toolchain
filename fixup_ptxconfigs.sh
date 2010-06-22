@@ -26,7 +26,9 @@ fixup()
     # defaults
     PTXCONF_PREFIX="/opt"
     PTXCONF_GLIBC_CONFIG_EXTRA=""
+    PTXCONF_EGLIBC_CONFIG_EXTRA=""
     PTXCONF_GLIBC_TIMESTAMP=""
+    PTXCONF_EGLIBC_SVNREV="HEAD"
     PTXCONF_CROSS_GCC_LANG_JAVA=n
     PTXCONF_KERNEL_HEADERS_SANITIZED=n
     # FIXME: nptl vs. linuxthreads
@@ -46,6 +48,9 @@ fixup()
 	case "${part}" in
 	    gcc*)
 		PTXCONF_CROSS_GCC_VERSION="${part##gcc-}"
+		;;
+	    eglibc*)
+		PTXCONF_EGLIBC_VERSION="${part##eglibc-}"
 		;;
 	    glibc*)
 		PTXCONF_GLIBC_VERSION="${part##glibc-}"
@@ -96,9 +101,11 @@ fixup()
     case "${PTXCONF_GNU_TARGET}" in
 	arm*gnueabi)
 	    PTXCONF_GLIBC_HEADERS_FAKE_CROSS="-D__ARM_EABI__"
+	    PTXCONF_EGLIBC_HEADERS_FAKE_CROSS="-D__ARM_EABI__"
 	    ;;
 	mips*)
 	    PTXCONF_GLIBC_HEADERS_FAKE_CROSS="-DBOOTSTRAP_GCC"
+	    PTXCONF_EGLIBC_HEADERS_FAKE_CROSS="-DBOOTSTRAP_GCC"
 	    ;;
 	*)
 	    ;;
@@ -129,6 +136,7 @@ fixup()
     #
     # PTXCONF_CROSS_GCC_CONFIG_EXTRA
     # PTXCONF_GLIBC_CONFIG_EXTRA
+    # PTXCONF_EGLIBC_CONFIG_EXTRA
     #
     case "${PTXCONF_GNU_TARGET}" in
 	# hard, fpa
@@ -213,15 +221,24 @@ fixup()
 	    ;;
     esac
 
+	PTXCONF_EGLIBC_CONFIG_EXTRA="${PTXCONF_GLIBC_CONFIG_EXTRA}"
+	
     #
     # PTXCONF_GLIBC_ENABLE_KERNEL
+    # PTXCONF_EGLIBC_ENABLE_KERNEL
     #
     case "${PTXCONF_KERNEL_HEADERS_VERSION}" in
 	2.6.18)
 	    PTXCONF_GLIBC_ENABLE_KERNEL="2.6.16"
+	    PTXCONF_EGLIBC_ENABLE_KERNEL="2.6.16"
 	    ;;
-	2.6.2[6789])
+ 	2.6.2[456789])
 	    PTXCONF_GLIBC_ENABLE_KERNEL="2.6.23"
+	    PTXCONF_EGLIBC_ENABLE_KERNEL="2.6.23"
+	    ;;
+ 	2.6.3[123456789])
+	    PTXCONF_GLIBC_ENABLE_KERNEL="2.6.31"
+	    PTXCONF_EGLIBC_ENABLE_KERNEL="2.6.31"
 	    ;;
 	"")
 	    ;;

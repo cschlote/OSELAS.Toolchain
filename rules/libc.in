@@ -1,5 +1,6 @@
 config LIBC_HEADERS
 	bool
+	select EGLIBC_HEADERS		if LIBC_EGLIBC
 	select GLIBC_HEADERS		if LIBC_GLIBC
 	select UCLIBC_HEADERS		if LIBC_UCLIBC
 	select W32API_HEADERS		if LIBC_MINGW
@@ -9,6 +10,7 @@ config LIBC_FIRST
 	bool
 	select CROSS_GCC_FIRST
 	
+	select EGLIBC_FIRST		if LIBC_EGLIBC
 	select GLIBC_FIRST		if LIBC_GLIBC
 	select UCLIBC			if LIBC_UCLIBC
 	select NEWLIB			if LIBC_NEWLIB
@@ -25,6 +27,10 @@ config LIBC
 choice
 	prompt "C library"
 	default LIBC_GLIBC
+
+	config LIBC_EGLIBC
+		bool
+		prompt "eglibc          "
 
 	config LIBC_GLIBC
 		bool
