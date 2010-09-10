@@ -17,12 +17,15 @@ HOST_PACKAGES-$(PTXCONF_HOST_GMP) += host-gmp
 #
 # Paths and names
 #
-HOST_GMP_VERSION	:= 4.2.4
+HOST_GMP_VERSION	:= 5.0.1
 HOST_GMP		:= gmp-$(HOST_GMP_VERSION)
 HOST_GMP_SUFFIX		:= tar.bz2
-HOST_GMP_URL		:= $(PTXCONF_SETUP_GNUMIRROR)/gmp/$(HOST_GMP).$(HOST_GMP_SUFFIX)
 HOST_GMP_SOURCE		:= $(SRCDIR)/$(HOST_GMP).$(HOST_GMP_SUFFIX)
 HOST_GMP_DIR		:= $(HOST_BUILDDIR)/$(HOST_GMP)
+
+HOST_GMP_URL		:= \
+	$(PTXCONF_SETUP_GNUMIRROR)/gmp/$(HOST_GMP).$(HOST_GMP_SUFFIX) \
+	ftp://ftp.gmplib.org/pub/$(HOST_GMP)/$(HOST_GMP).$(HOST_GMP_SUFFIX)
 
 # ----------------------------------------------------------------------------
 # Get
