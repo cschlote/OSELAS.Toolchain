@@ -1,11 +1,11 @@
 #
 # Automatically generated make config: don't edit
-# ptxdist version: 2010.01.0-00051-gbf62cf9
+# ptxdist version: 2010.01.0
 #
 PTXCONF__ptxconfig_MAGIC__=y
 PTXCONF_BUILD_TOOLCHAIN=y
 PTXCONF_NO_PLATFORM=y
-PTXCONF_PROJECT="OSELAS.Toolchain-2010.06.0"
+PTXCONF_PROJECT="OSELAS.Toolchain-2010.10.0"
 
 #
 # ----------------------------------
@@ -63,7 +63,6 @@ PTXCONF_CROSS_GCC_CONFIG_CXA_ATEXIT="--disable-__cxa_atexit"
 PTXCONF_CROSS_GCC_ENABLE_SJLJ_EXCEPTIONS=y
 # PTXCONF_CROSS_GCC_DISABLE_SJLJ_EXCEPTIONS is not set
 PTXCONF_CROSS_GCC_CONFIG_SJLJ_EXCEPTIONS="--enable-sjlj-exceptions"
-# PTXCONF_CROSS_GCC_ENABLE_LIBSSP is not set
 PTXCONF_CROSS_GCC_DISABLE_LIBSSP=y
 PTXCONF_CROSS_GCC_CONFIG_LIBSSP="--disable-libssp"
 # PTXCONF_CROSS_GCC_ENABLE_SHARED is not set
