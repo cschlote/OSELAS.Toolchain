@@ -3,7 +3,7 @@
 ARGS_FULL=("${@}")
 
 # version
-PTXCONF_CONFIGFILE_VERSION="2010.01.0"
+PTXCONF_CONFIGFILE_VERSION="2010.05.4"
  
 get_replace()
 {
@@ -353,7 +353,7 @@ while [ ${#} -ne 0 ]; do
     shift
 
     case "${arg}" in
-    --info)
+	--info)
 		action=info
 		action_args="${1}"
 		shift

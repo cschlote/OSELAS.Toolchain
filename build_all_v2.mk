@@ -138,6 +138,9 @@ update-ptxd: mkdirs
 	git add ptxdist
 	git citool
 
+update-configs: compile-ptxd
+	./fixup_ptxconfigs.sh
+
 clean:
 	-make -C ptxdist distclean
 	-rm -rf platform-*
