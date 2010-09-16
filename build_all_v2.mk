@@ -19,22 +19,16 @@ BENICE			:= true
 #
 BUILDDATE	:= $(shell date +%y%m%d-%H%M)
 
-# VERSION		:= $(shell					\
-# 	version=$$(pwd | sed -e "s~.*/OSELAS.Toolchain-~~");	\
-# 	case "$${version}" in					\
-# 		(*trunk*)					\
-# 			svnversion |				\
-# 			sed					\
-# 			-e "s/^/trunk-/" 			\
-# 			-e "s/:/./g";; 				\
-# 		(*)						\
-# 			echo "$${version}";;			\
-# 	esac							\
-# )
-VERSION		:= $(shell pwd | sed -n -e "s~.*/OSELAS.Toolchain-~~p")
-ifeq (,$(VERSION))
-$(error rename your working copy directory to OSELAS.Toolchain-$$VERSION)
+VERSION		:= $(shell git describe | sed -n -e 's~OSELAS.Toolchain-~~p')
+VERSION_BASE := $(shell echo $(VERSION) |  sed -n -e 's~\(.*\)-.*-.*~\1~p')
+ifneq (,$(VERSION_BASE))
+$(warning Compiling toolchains from untagged working copy '$(VERSION)')
+VERSION := $(VERSION_BASE)
 endif
+ifeq (,$(VERSION))
+$(error Setup an annotated tag OSELAS.Toolchain-$$VERSION for your working copy)
+endif
+$(info Using toolchain version '$(VERSION)' for build)
 
 ARCH		:= $(shell			\
 	case "$$(uname -m)" in			\
@@ -50,6 +44,7 @@ $(error failed to detect arch, or arch is unsupported)
 endif
 
 PTXDIST			:= ./p --force
+PTXDIST_VERSION_REQUIRED := $(shell ./fixup_ptxconfigs.sh --info)
 
 ifdef BENICE
 NICE			+= nice -n 19
@@ -106,21 +101,21 @@ $(STATEDIR)/%.build: | mkdirs
 	$(NICE) $(PTXDIST) go --ptxconfig=$(2CONFIGFILE_$(*))
 
 $(STATEDIR)/ptxdist.build:
-	git submodule update
+	@git submodule update || (echo "Unable to update GIT submodules"; false )
 	@./p --version 2&> /dev/null || ( \
 		echo "building ptxdist binary in subdir 'ptxdist'."; \
 		cd ptxdist; ./autogen.sh; ./configure --prefix=`pwd`; \
-		make; \
-		cd ..; )
+		make )
 	@./p --version 2&> /dev/null || (echo "Unable to build ptxdist."; false)
 	@./p --version 2&> $@
-	@if [ x`cat $@` != x`./p print PTXCONF_CONFIGFILE_VERSION` ]; then \
-		echo -n "\nRelease mismatch!\n\n"; \
-		echo "Required ptxdist version:" `./p print PTXCONF_CONFIGFILE_VERSION`; \
+	@if [ "`cat $@`" != $(PTXDIST_VERSION_REQUIRED) ]; then \
+		echo -en "\nRelease mismatch!\n\n"; \
+		echo "Required ptxdist version:" $(PTXDIST_VERSION_REQUIRED); \
 		echo "Compiled ptxdist version:" `cat $@`; \
-		echo -n "\n\nUpdate ptxdist submodule to required version\n"; \
-		echo -n "Use ./build_all_v2.sh update-ptxd\n"; \
+		echo -en "\n\nUpdate ptxdist submodule to required version\n"; \
+		echo -en "Use ./build_all_v2.sh update-ptxd\n"; \
 	fi
+	@echo -e "\n\nSuccessfully prepared ptxdist $(PTXDIST_VERSION_REQUIRED) for\nOSELAS.Toolchain-$(VERSION) build.\n\n"
 
 mkdirs:
 	@mkdir -p $(STATEDIR) $(DISTDIR)

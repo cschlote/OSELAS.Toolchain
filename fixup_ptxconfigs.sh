@@ -2,7 +2,7 @@
 
 ARGS_FULL=("${@}")
 
-# version
+# Required ptxdist version - will be checked-out and built as needed
 PTXCONF_CONFIGFILE_VERSION="2010.05.4"
  
 get_replace()
