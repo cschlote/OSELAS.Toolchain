@@ -19,7 +19,7 @@ BENICE			:= true
 #
 BUILDDATE	:= $(shell date +%y%m%d-%H%M)
 
-VERSION		:= $(shell git describe | sed -n -e 's~OSELAS.Toolchain-~~p')
+VERSION		?= $(shell git describe | sed -n -e 's~OSELAS.Toolchain-~~p')
 VERSION_BASE := $(shell echo $(VERSION) |  sed -n -e 's~\(.*\)-.*-.*~\1~p')
 ifneq (,$(VERSION_BASE))
 $(warning Compiling toolchains from untagged working copy '$(VERSION)')
