@@ -116,7 +116,7 @@ print-%:
 	@echo "$* is \"$($(*))\""
 
 help:
-	@echo "Available DPKG targets:"
-	@for i in $(DEBS); do echo $$i; done;
-	@echo "Available tarball targets:"
-	@for i in $(TBZ2S); do echo $$i; done;
+	@echo -e "\nAvailable DPKG targets:\n"
+	@for i in $(sort $(DEBS)); do echo $$i; done;
+	@echo -e "\nAvailable tarball targets:\n"
+	@for i in $(sort $(TBZ2S)); do echo $$i; done;
