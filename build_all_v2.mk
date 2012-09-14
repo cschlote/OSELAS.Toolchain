@@ -1,4 +1,4 @@
-#!/usr/bin/make -f
+#!/usr/bin/make -rRBf
 
 #
 # Makefile to build all ptxconfigs
