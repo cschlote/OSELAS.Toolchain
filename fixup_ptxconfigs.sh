@@ -20,7 +20,7 @@ fixup()
 
     # version
     PTXCONF_CONFIGFILE_VERSION="2011.11.0"
-    PTXCONF_PROJECT="OSELAS.Toolchain-2011.11.0"
+    PTXCONF_PROJECT="${PWD}"
     PTXCONF_PROJECT="${PTXCONF_PROJECT##*/}"
 
     # defaults
@@ -331,6 +331,11 @@ while [ ${#} -ne 0 ]; do
     shift
 
     case "${arg}" in
+    --info)
+		action=info
+		action_args="${1}"
+		shift
+		;;
 	--update)
 	    action=update
 	    action_args="${1}"
@@ -342,6 +347,11 @@ while [ ${#} -ne 0 ]; do
     esac
 done
 
+info ()
+{
+	echo $PTXCONF_CONFIGFILE_VERSION
+	exit 0
+}
 
 set --  "${ARGS_SECOND[@]}"
 
