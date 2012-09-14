@@ -130,6 +130,17 @@ update-ptxd: mkdirs
 	git add ptxdist
 	git citool
 
+update-configs: compile-ptxd
+	./fixup_ptxconfigs.sh
+
+clean:
+	-make -C ptxdist distclean
+	-rm -rf platform-*
+	-rm -rf $(STATEDIR) $(PTX_AUTOBUILD_DESTDIR)
+
+distclean: clean
+	-rm -rf $(DISTDIR)
+
 help:
 	@echo -e "\nAvailable DPKG targets:\n"
 	@for i in $(sort $(DEBS)); do echo $$i; done;
