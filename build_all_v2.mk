@@ -18,7 +18,17 @@ BENICE			:= true
 
 BUILDDATE	:= $(shell date +%y%m%d-%H%M)
 
-VERSION		:= $(shell ./scripts/setlocalversion ./.tarball-version)
+#VERSION		?= $(shell ./scripts/setlocalversion ./.tarball-version)
+VERSION		?= $(shell git describe | sed -n -e 's~OSELAS.Toolchain-~~p')
+VERSION_BASE := $(shell echo $(VERSION) |  sed -n -e 's~\(.*\)-.*-.*~\1~p')
+ifneq (,$(VERSION_BASE))
+$(warning Compiling toolchains from untagged working copy '$(VERSION)')
+VERSION := $(VERSION_BASE)
+endif
+ifeq (,$(VERSION))
+$(error Setup an annotated tag OSELAS.Toolchain-$$VERSION for your working copy)
+endif
+$(info Using toolchain version '$(VERSION)' for build)
 
 ARCH		:= $(shell			\
 	case "$$(uname -m)" in			\
