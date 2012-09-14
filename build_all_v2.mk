@@ -139,7 +139,10 @@ update-configs: compile-ptxd
 clean:
 	-make -C ptxdist distclean
 	-rm -rf platform-*
-	-rm -rf $(STATEDIR) $(DISTDIR) $(PTX_AUTOBUILD_DESTDIR)
+	-rm -rf $(STATEDIR) $(PTX_AUTOBUILD_DESTDIR)
+
+distclean: clean
+	-rm -rf $(DISTDIR) 
 
 help:
 	@echo -e "\nAvailable DPKG targets:\n"
