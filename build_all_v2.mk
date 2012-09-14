@@ -28,7 +28,7 @@ endif
 ifeq (,$(VERSION))
 $(error Setup an annotated tag OSELAS.Toolchain-$$VERSION for your working copy)
 endif
-$(info Using toolchain version '$(VERSION)' for build)
+$(info Creating toolchain version '$(VERSION)' for build)
 
 ARCH		:= $(shell			\
 	case "$$(uname -m)" in			\
