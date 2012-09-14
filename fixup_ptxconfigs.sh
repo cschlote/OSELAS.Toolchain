@@ -4,7 +4,16 @@ ARGS_FULL=("${@}")
 
 PTXCONF_CONFIGFILE_VERSION="2011.11.0"
 
+# derive release version from GIT annotated tag
 VERSION=`git describe | sed -n -e 's~OSELAS.Toolchain-~~p'`
+VERSION_BASE=`echo $VERSION |  sed -n -e 's~\(.*\)-.*-.*~\1~p'`
+if [ -n "$VERSION_BASE" ] ; then
+	VERSION=$VERSION_BASE
+fi
+if [ -z "$VERSION" ] ; then
+	echo Setup an annotated tag OSELAS.Toolchain-$VERSION for your working copy
+	exit 1
+fi
 
 get_replace()
 {
@@ -305,6 +314,8 @@ fixup()
     echo
 
     ./p --force --ptxconfig="${config}" oldconfig || exit 1
+
+	echo Updated for toolchain release version $VERSION
 }
 
 update()
