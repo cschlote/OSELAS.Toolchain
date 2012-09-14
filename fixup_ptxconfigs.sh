@@ -2,6 +2,8 @@
 
 ARGS_FULL=("${@}")
 
+PTXCONF_CONFIGFILE_VERSION="2011.11.0"
+
 get_replace()
 {
     local var="${1}"
@@ -19,7 +21,6 @@ fixup()
     local config="${1}"
 
     # version
-    PTXCONF_CONFIGFILE_VERSION="2011.11.0"
     PTXCONF_PROJECT="${PWD}"
     PTXCONF_PROJECT="${PTXCONF_PROJECT##*/}"
 
