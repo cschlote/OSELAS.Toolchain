@@ -39,7 +39,6 @@ Package: ${package}
 Version: ${version}
 Priority: optional
 Architecture: ${arch}
-Section: devel
 Essential: no
 Section: devel
 Maintainer: Pengutronix <ptxdist@pengutronix.de>
