@@ -5,6 +5,18 @@ ARGS_FULL=("${@}")
 # Required ptxdist version - will be checked-out and built as needed
 PTXCONF_CONFIGFILE_VERSION="2010.05.4"
  
+
+# derive release version from GIT annotated tag
+VERSION=`git describe | sed -n -e 's~OSELAS.Toolchain-~~p'`
+VERSION_BASE=`echo $VERSION |  sed -n -e 's~\(.*\)-.*-.*~\1~p'`
+if [ -n "$VERSION_BASE" ] ; then
+	VERSION=$VERSION_BASE
+fi
+if [ -z "$VERSION" ] ; then
+	echo Setup an annotated tag OSELAS.Toolchain-$VERSION for your working copy
+	exit 1
+fi
+
 get_replace()
 {
     local var="${1}"
@@ -22,7 +34,7 @@ fixup()
     local config="${1}"
 
     # version
-    PTXCONF_PROJECT="${PWD}"
+    PTXCONF_PROJECT="${PWD}-$VERSION"
     PTXCONF_PROJECT="${PTXCONF_PROJECT##*/}"
 
     # defaults
@@ -132,6 +144,9 @@ fixup()
 	avr)
 	    PTXCONF_ARCH_AVR=y
 	    ;;
+	x86_64*)
+	    PTXCONF_ARCH_X86_64=y
+	    ;;
 	*)
 	    echo "unsupported GNU_TARGET: ${PTXCONF_GNU_TARGET}"
 	    exit 1
@@ -166,6 +181,11 @@ fixup()
 	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=softfp	--with-fpu=neon	--with-cpu=cortex-a8"
 	    ;;
 
+	# softfp, neon
+	arm-cortexa9-linux-gnueabi)
+	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=softfp	--with-fpu=neon	--with-cpu=cortex-a9"
+	    ;;
+
 	# soft, vfp
 	armeb-xscale-linux-gnueabi|armeb-xscale-linux-gnu)
 	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=soft	--with-fpu=vfp	--with-cpu=xscale"
@@ -192,6 +212,10 @@ fixup()
 	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=soft	--with-fpu=vfp	--with-cpu=cortex-m3				--with-mode=thumb"
 	    ;;
 
+
+	i486-unknown-linux-gnu)
+	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-arch=i486"
+	    ;;
 	i586-unknown-linux-gnu)
 	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-arch=i586"
 	    ;;
@@ -204,6 +228,9 @@ fixup()
 	i686-geode-linux-gnu)
 	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-arch=geode"
 	    ;;
+
+	x86_64-unknown-linux-gnu)
+		;;
 
 	m68k-linux-gnu)
 	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-cpu=m68030"
@@ -304,6 +331,8 @@ fixup()
     echo
 
     ./p --force --ptxconfig="${config}" oldconfig || exit 1
+
+	echo Updated for toolchain release version $VERSION
 }
 
 update()
@@ -333,11 +362,6 @@ update()
     fi
 }
 
-info ()
-{
-	echo $PTXCONF_CONFIGFILE_VERSION
-	exit 0
-}
 
 #
 # main()
@@ -353,7 +377,7 @@ while [ ${#} -ne 0 ]; do
     shift
 
     case "${arg}" in
-	--info)
+    --info)
 		action=info
 		action_args="${1}"
 		shift
@@ -369,6 +393,11 @@ while [ ${#} -ne 0 ]; do
     esac
 done
 
+info ()
+{
+	echo $PTXCONF_CONFIGFILE_VERSION
+	exit 0
+}
 
 set --  "${ARGS_SECOND[@]}"
 
