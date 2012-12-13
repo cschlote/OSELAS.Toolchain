@@ -4,6 +4,8 @@ ARGS_FULL=("${@}")
 
 PTXCONF_CONFIGFILE_VERSION="2012.12.1"
 
+VERSION=`git describe | sed -n -e 's~OSELAS.Toolchain-~~p'`
+
 get_replace()
 {
     local var="${1}"
