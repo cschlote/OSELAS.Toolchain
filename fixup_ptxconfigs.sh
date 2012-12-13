@@ -4,6 +4,8 @@ ARGS_FULL=("${@}")
 
 PTXCONF_CONFIGFILE_VERSION="2012.12.0"
 
+VERSION=`git describe | sed -n -e 's~OSELAS.Toolchain-~~p'`
+
 get_replace()
 {
     local var="${1}"
@@ -21,7 +23,7 @@ fixup()
     local config="${1}"
 
     # version
-    PTXCONF_PROJECT="OSELAS.Toolchain-2012.12.0-kp1"
+    PTXCONF_PROJECT="${PWD}-$VERSION"
     PTXCONF_PROJECT="${PTXCONF_PROJECT##*/}"
 
     # defaults
