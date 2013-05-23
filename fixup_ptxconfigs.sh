@@ -32,7 +32,7 @@ fixup()
     local config="${1}"
 
     # version
-    PTXCONF_PROJECT="OSELAS.Toolchain-2012.12.1-kp1"
+    PTXCONF_PROJECT="oselas.toolchain-$VERSION"
     #PTXCONF_PROJECT="${PTXCONF_PROJECT##*/}"
 
     # defaults
