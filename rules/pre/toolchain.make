@@ -43,6 +43,25 @@ PTX_HOST_CROSS_AUTOCONF := \
 
 PTXDIST_HOST_LDFLAGS				+= -Wl,--as-needed
 
+ifndef HOST_ENV_CC
+HOST_ENV_CC					:= CC=gcc
+HOST_ENV_CXX					:= CXX=g++
+HOST_ENV += \
+	$(HOST_ENV_CC) \
+	$(HOST_ENV_CXX)
+endif
+
+# TODO:
+PTX_HOST_ENV := \
+	$(HOST_ENV_CC) \
+	$(HOST_ENV_CXX) \
+	$(HOST_ENV_CPPFLAGS) \
+	$(HOST_ENV_LDFLAGS) \
+	$(HOST_ENV_PKG_CONFIG)
+
+PTX_HOST_CROSS_ENV :=
+
+
 #
 # gcc-first
 #
