@@ -17,7 +17,7 @@ PTXDIST			:= ./p
 ARG			:= images
 
 ifdef BENICE
-NICE			+= nice -20
+NICE			+= nice -n 19
 endif
 
 CONFIGDIR	:= ptxconfigs
