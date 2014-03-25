@@ -114,6 +114,9 @@ fixup()
 	i?86*)
 	    PTXCONF_ARCH_I386=y
 	    ;;
+	m68k*)
+	    PTXCONF_ARCH_M68K=y
+	    ;;
 	mips*)
 	    PTXCONF_ARCH_MIPS=y
 	    ;;
@@ -204,12 +207,18 @@ fixup()
 	    ;;
 
 	x86_64-unknown-linux-gnu)
+		;;
+
+	m68k-linux-gnu)
+	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-cpu=m68030"
+	    PTXCONF_GLIBC_CONFIG_EXTRA="--without-fp"
 	    ;;
 
 	mipsel-softfloat-linux-gnu)
 	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=soft"
 	    PTXCONF_GLIBC_CONFIG_EXTRA="--without-fp"
 	    ;;
+
 	powerpc-603e-linux-gnu)
 	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-cpu=603e	--disable-altivec"
 	    ;;
