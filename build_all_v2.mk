@@ -11,13 +11,17 @@ SHELL		:= /bin/bash
 #
 # config
 #
-BENICE			:= true
+BENICE		:= true
+#BEQUIET	:= true
 
-PTXDIST			:= ./p
-ARG			:= images
+PTXDIST		:= ./p
+ARG		:= images
 
 ifdef BENICE
-NICE			+= nice -20
+NICE		+= nice -n 19
+endif
+ifdef BEQUIET
+QUIET           += -q
 endif
 
 CONFIGDIR	:= ptxconfigs
