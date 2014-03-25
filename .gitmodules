@@ -1,0 +1,3 @@
+[submodule "ptxdist"]
+	path = ptxdist
+	url = git://git.pengutronix.de/git/ptxdist
