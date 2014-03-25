@@ -39,6 +39,8 @@ ARG			:= go
 export PTXDIST_ENV_WHITELIST	:= CROSS_GDB_WITHOUT_PYTHON
 export CROSS_GDB_WITHOUT_PYTHON	:= y
 
+PTXDIST_VERSION_REQUIRED := $(shell ./fixup_ptxconfigs.sh --info)
+
 ifdef BENICE
 NICE			+= nice -n 19
 endif
@@ -84,10 +86,10 @@ OLDCONFIGS	:= $(foreach config,$(CONFIGS_),$(addsuffix .oldconfig,$(config)))
 
 all: $(TBZ2S) $(DEBS)
 
-$(DEB_PREFIX)%$(DEB_SUFFIX): $(STATEDIR)/%.build | mkdirs
+$(DEB_PREFIX)%$(DEB_SUFFIX): $(STATEDIR)/%.build | compile-ptxd mkdirs
 	@scripts/make_deb.sh -d "$(@)" -s "$(PTX_AUTOBUILD_DESTDIR)/$(2INSTDIR_$(*))"
 
-$(TBZ2_PREFIX)%$(TBZ2_SUFFIX): $(STATEDIR)/%.build | mkdirs
+$(TBZ2_PREFIX)%$(TBZ2_SUFFIX): $(STATEDIR)/%.build | compile-ptxd mkdirs
 	@echo Creating $(notdir $@) ...
 	@echo 'tar -C "$(PTX_AUTOBUILD_DESTDIR)/opt" --exclude=gcc-first -cJf "$(@)" "$(patsubst /opt/%,%,$(2INSTDIR_$(*)))"' | fakeroot
 
@@ -113,11 +115,39 @@ oldconfig: $(OLDCONFIGS)
 %.oldconfig:
 	$(PTXDIST) oldconfig --ptxconfig=$(2CONFIGFILE_$(*))
 
+$(STATEDIR)/ptxdist.build:
+	@git submodule update || (echo "Unable to update GIT submodules"; false )
+	@./p --version 2&> /dev/null || ( \
+		echo "building ptxdist binary in subdir 'ptxdist'."; \
+		cd ptxdist; ./autogen.sh; ./configure --prefix=`pwd`; \
+		make; \
+		cd ..; )
+	@./p --version 2&> /dev/null || (echo "Unable to build ptxdist."; false)
+	@./p --version 2&> $@
+	@if [ "`cat $@`" != $(PTXDIST_VERSION_REQUIRED) ]; then \
+		echo -en "\nRelease mismatch!\n\n"; \
+		echo "Required ptxdist version:" $(PTXDIST_VERSION_REQUIRED); \
+		echo "Compiled ptxdist version:" `cat $@`; \
+		echo -en "\n\nUpdate ptxdist submodule to required version\n"; \
+		echo -en "Use ./build_all_v2.sh update-ptxd\n"; \
+	fi
+	@echo -e "\n\nSuccessfully prepared ptxdist $(PTXDIST_VERSION_REQUIRED) for\nOSELAS.Toolchain-$(VERSION) build.\n\n"
+
 mkdirs:
 	@mkdir -p $(STATEDIR) $(DISTDIR)
 
 print-%:
 	@echo "$* is \"$($(*))\""
+
+
+compile-ptxd: mkdirs $(STATEDIR)/ptxdist.build
+
+update-ptxd: mkdirs
+	-make -C ptxdist distclean
+	rev=`./fixup_ptxconfigs.sh --info`; \
+	cd ptxdist && git checkout ptxdist-$$rev
+	git add ptxdist
+	git citool
 
 help:
 	@echo -e "\nAvailable DPKG targets:\n"
