@@ -91,6 +91,17 @@ update-ptxd: mkdirs
 	git add ptxdist
 	git citool
 
+update-configs: compile-ptxd
+	./fixup_ptxconfigs.sh
+
+clean:
+	-make -C ptxdist distclean
+	-rm -rf platform-*
+	-rm -rf $(STATEDIR) $(PTX_AUTOBUILD_DESTDIR)
+
+distclean: clean
+	-rm -rf $(DISTDIR)
+
 help:
 	@echo "Available build targets:"
 	@for i in $(sort $(BUILDS)); do echo $$i; done;
