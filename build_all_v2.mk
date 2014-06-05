@@ -47,7 +47,7 @@ OLDCONFIGS	:= $(foreach config,$(CONFIGS_),$(addsuffix .oldconfig,$(config)))
 all: $(BUILDS)
 
 $(foreach config,$(CONFIGS_),$(eval $(STATEDIR)/$(config).build: $(2CONFIGFILE_$(config))))
-$(STATEDIR)/%.build: | mkdirs
+$(STATEDIR)/%.build: | mkdirs $(STATEDIR)/ptxdist.build
 	@echo "building ${*}"
 	$(NICE) $(PTXDIST) $(ARG) --ptxconfig=$(2CONFIGFILE_$(*))
 	@if [ "$(strip $(filter images,$(ARG)))" = "images" ]; then touch "$@"; fi
@@ -103,5 +103,9 @@ distclean: clean
 	-rm -rf $(DISTDIR)
 
 help:
+	@echo "Available make targets:"
+	@echo "  all clean compile-ptxd distclean help mkdirs oldconfig"
+	@echo "  update-configs update-ptxd"
+	@echo ""
 	@echo "Available build targets:"
 	@for i in $(sort $(BUILDS)); do echo $$i; done;
