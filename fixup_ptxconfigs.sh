@@ -184,6 +184,18 @@ fixup()
 	    PTXCONF_GLIBC_CONFIG_EXTRA="--disable-multi-arch"
 	    ;;
 
+	# softfp, fpv4-sp-d16
+	arm-cortexa5-linux-gnueabi)
+	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=softfp	--with-fpu=vfpv4-d16	--with-arch=armv7-a	--with-tune=cortex-a5"
+	    PTXCONF_GLIBC_CONFIG_EXTRA="--disable-multi-arch"
+	    ;;
+
+	# hard, fpv4-sp-d16
+	arm-cortexa5-linux-gnueabihf)
+	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=hard	--with-fpu=vfpv4-d16	--with-arch=armv7-a	--with-tune=cortex-a5"
+	    PTXCONF_GLIBC_CONFIG_EXTRA="--disable-multi-arch"
+	    ;;
+
 	# soft, vfp
 	arm-v4t-linux-gnueabi)
 	    PTXCONF_CROSS_GCC_CONFIG_EXTRA="--with-float=soft	--with-fpu=vfp				--with-arch=armv4t"
