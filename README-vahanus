@@ -2,6 +2,8 @@
 How-to-Compile for OSELAS-Toolchain
 ===================================
 
+(Last updates 03.Feb.2015, csc)
+
 - Install "Ubuntu 14.04 trusty tar" - any flavour possible
 - Install the following packages:
 
@@ -9,7 +11,7 @@ $ apt-get install aptitude mc gedit geany joe \
    git-all autoconf libncurses5-dev flex bison texinfo \
    python-dev g++ fakeroot lzop default-jdk
 
-- Checkout sources for toolchain, the git submodule for ptxdist:
+- Checkout sources for toolchain, and update the git submodule for the embedded ptxdist:
 
 $ git clone git://git.vahanus.net/gitroot/csc/oselas.toolchain.git
 $ git checkout kp-toolchain-2014.12.0 (or newer)
@@ -39,5 +41,5 @@ $ dpkg -i dist/*.deb
 
 $ ./build_all_v2.mk distclean
 
-(Copy the debian packages to a safe place, if you intend to reuse them for further installations)
+(Copy the debian packages to a safe place, if you intend to re-use them for further installations)
 
