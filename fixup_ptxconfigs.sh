@@ -2,6 +2,8 @@
 
 ARGS_FULL=("${@}")
 
+PTXCONF_CONFIGFILE_VERSION="2014.12.0"
+
 get_replace()
 {
     local var="${1}"
@@ -360,6 +362,11 @@ while [ ${#} -ne 0 ]; do
     shift
 
     case "${arg}" in
+    --info)
+		action=info
+		action_args="${1}"
+		shift
+		;;
 	--update)
 	    action=update
 	    action_args="${1}"
@@ -371,6 +378,11 @@ while [ ${#} -ne 0 ]; do
     esac
 done
 
+info()
+{
+	echo $PTXCONF_CONFIGFILE_VERSION
+	exit 0
+}
 
 set --  "${ARGS_SECOND[@]}"
 
