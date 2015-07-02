@@ -23,6 +23,7 @@ export PTXDIST_ENV_WHITELIST	:= CROSS_GDB_WITHOUT_PYTHON
 export CROSS_GDB_WITHOUT_PYTHON	?= y
 
 PTXDIST_VERSION_REQUIRED := $(shell ./fixup_ptxconfigs.sh --info)
+OSELAS_VERSION := $(shell ./fixup_ptxconfigs.sh --relinfo)
 
 ifdef BENICE
 NICE			+= nice -n 19
@@ -74,7 +75,7 @@ $(STATEDIR)/ptxdist.build:
 		echo -en "\n\nUpdate ptxdist submodule to required version\n"; \
 		echo -en "Use ./build_all_v2.sh update-ptxd\n"; \
 	fi
-	@echo -e "\n\nSuccessfully prepared ptxdist $(PTXDIST_VERSION_REQUIRED) for\nOSELAS.Toolchain-$(VERSION) build.\n\n"
+	@echo -e "\n\nSuccessfully prepared ptxdist $(PTXDIST_VERSION_REQUIRED) for\nOSELAS.Toolchain-$(OSELAS_VERSION) build.\n\n"
 
 mkdirs:
 	@mkdir -p $(STATEDIR) $(DISTDIR)
