@@ -7,3 +7,4 @@ dist/*
 gstate/*
 inst/*
 platform-*
+src/*
