@@ -36,7 +36,7 @@ fixup()
     local config="${1}"
 
     # version
-    PTXCONF_PROJECT="OSELAS.Toolchain-2016.06.1"
+    PTXCONF_PROJECT="OSELAS.Toolchain-2016.06.1.0"
     PTXCONF_PROJECT="${PTXCONF_PROJECT##*/}"
 
     # defaults
