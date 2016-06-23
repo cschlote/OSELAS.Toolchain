@@ -2,6 +2,8 @@
 
 ARGS_FULL=("${@}")
 
+PTXCONF_CONFIGFILE_VERSION="2016.06.0"
+
 get_replace()
 {
     local var="${1}"
@@ -19,7 +21,6 @@ fixup()
     local config="${1}"
 
     # version
-    PTXCONF_CONFIGFILE_VERSION="2016.06.1"
     PTXCONF_PROJECT="OSELAS.Toolchain-2016.06.1"
     PTXCONF_PROJECT="${PTXCONF_PROJECT##*/}"
 
@@ -423,6 +424,11 @@ while [ ${#} -ne 0 ]; do
     shift
 
     case "${arg}" in
+    --info)
+	    action=info
+	    action_args="${1}"
+	    shift
+	    ;;
 	--update)
 	    action=update
 	    action_args="${1}"
@@ -434,6 +440,11 @@ while [ ${#} -ne 0 ]; do
     esac
 done
 
+info()
+{
+	echo $PTXCONF_CONFIGFILE_VERSION
+	exit 0
+}
 
 set --  "${ARGS_SECOND[@]}"
 
