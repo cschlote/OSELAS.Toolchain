@@ -4,6 +4,21 @@ ARGS_FULL=("${@}")
 
 PTXCONF_CONFIGFILE_VERSION="2016.06.0"
 
+get_gitversiontag()
+{
+	local version=`git describe | sed -n -e 's~v~~p'`
+	local versionbase=`echo $version | sed -n -e 's~\(.*\)-.*-.*~\1~p'`
+	if [ -n "$versionbase" ] ; then
+		version=$versionbase
+	fi
+	echo "$version"
+}
+VERSION=`get_gitversiontag`
+if [ -z "$VERSION" ] ; then
+	echo Setup an annotated tag as \'v\$VERSION\' for your working copy
+	exit 1
+fi
+
 get_replace()
 {
     local var="${1}"
@@ -380,6 +395,8 @@ fixup()
     eval sed -i "$(get_replace PTXCONF_CONFIGFILE_VERSION)" \
 	-e "\"s~^\(\# PTXdist \).*~\1${PTXCONF_CONFIGFILE_VERSION}~\"" \
 		"${config}"
+
+    echo "Updated for toolchain release version $VERSION"
 }
 
 update()
@@ -429,6 +446,11 @@ while [ ${#} -ne 0 ]; do
 	    action_args="${1}"
 	    shift
 	    ;;
+    --relinfo)
+		action=relinfo
+		action_args="${1}"
+		shift
+		;;
 	--update)
 	    action=update
 	    action_args="${1}"
@@ -443,6 +465,12 @@ done
 info()
 {
 	echo $PTXCONF_CONFIGFILE_VERSION
+	exit 0
+}
+
+relinfo()
+{
+	echo $VERSION
 	exit 0
 }
 
