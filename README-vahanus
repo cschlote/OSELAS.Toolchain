@@ -8,8 +8,8 @@ How-to-Compile for OSELAS-Toolchain
 - Install the following packages:
 
 $ sudo apt install aptitude mc gedit geany joe meld libmodule-build-perl ccache git \
-    autoconf autotools-dev libncurses-dev flex bison texinfo python-dev g++ fakeroot debhelper lzop 
-     default-jdk default-jre
+    autoconf autotools-dev libncurses-dev flex bison texinfo python-dev g++ fakeroot debhelper lzop \
+     default-jdk default-jre 
 
 - Checkout sources for toolchain, and update the git submodule for the embedded ptxdist:
 
@@ -23,7 +23,7 @@ $ ./build_all_v2.mk compile-ptxd
 
 $ ./build_all_v2.mk help
 
-- Build all toolchains in a row, cleaning build files inbetween:
+- Build all toolchains in a row:
 
 $ ./build_all_v2.mk clean \
 gstate/aarch64-v8a-linux-gnu-gcc-5.4.0-glibc-2.23-binutils-2.26-kernel-4.6-sanitized.build \
@@ -44,6 +44,13 @@ gstate/i686-atom-linux-gnu-gcc-5.4.0-glibc-2.23-binutils-2.26-kernel-4.6-sanitiz
 gstate/mipsel-softfloat-linux-gnu-gcc-5.4.0-glibc-2.23-binutils-2.26-kernel-4.6-sanitized.build \
 gstate/powerpc-603e-linux-gnu-gcc-5.4.0-glibc-2.23-binutils-2.26-kernel-4.6-sanitized.build \
 gstate/x86-64-unknown-linux-gnu-gcc-5.4.0-glibc-2.23-binutils-2.26-kernel-4.6-sanitized.build
+
+$ ./build_all_v2.mk \
+ gstate/arm-1136jfs-linux-gnueabihf-gcc-5.4.0-glibc-2.23-binutils-2.26-kernel-4.6-sanitized.build \
+ gstate/arm-v7a-linux-gnueabi-gcc-5.4.0-glibc-2.23-binutils-2.26-kernel-4.6-sanitized.build \
+ gstate/i686-atom-linux-gnu-gcc-5.4.0-glibc-2.23-binutils-2.26-kernel-4.6-sanitized.build \
+ gstate/x86-64-unknown-linux-gnu-gcc-5.4.0-glibc-2.23-binutils-2.26-kernel-4.6-sanitized.build \
+ gstate/powerpc-603e-linux-gnu-gcc-5.4.0-glibc-2.23-binutils-2.26-kernel-4.6-sanitized.build
 
 - Install the toolchains:
 
