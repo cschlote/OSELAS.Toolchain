@@ -14,7 +14,7 @@ $ sudo apt install aptitude mc gedit geany joe meld libmodule-build-perl ccache 
 - Checkout sources for toolchain, and update the git submodule for the embedded ptxdist:
 
 $ git clone git://git.vahanus.net/gitroot/csc/oselas.toolchain.git
-$ git checkout v2016.06.0-va (or newer)
+$ git checkout v2016.06.1.0 (or newer)
 $ git submodule init
 
 - Compile the reference ptxdist in the git submodule:
@@ -44,6 +44,8 @@ gstate/i686-atom-linux-gnu-gcc-5.4.0-glibc-2.23-binutils-2.26-kernel-4.6-sanitiz
 gstate/mipsel-softfloat-linux-gnu-gcc-5.4.0-glibc-2.23-binutils-2.26-kernel-4.6-sanitized.build \
 gstate/powerpc-603e-linux-gnu-gcc-5.4.0-glibc-2.23-binutils-2.26-kernel-4.6-sanitized.build \
 gstate/x86-64-unknown-linux-gnu-gcc-5.4.0-glibc-2.23-binutils-2.26-kernel-4.6-sanitized.build
+
+- Or just a subset:
 
 $ ./build_all_v2.mk \
  gstate/arm-1136jfs-linux-gnueabihf-gcc-5.4.0-glibc-2.23-binutils-2.26-kernel-4.6-sanitized.build \
