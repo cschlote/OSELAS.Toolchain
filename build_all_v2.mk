@@ -114,8 +114,9 @@ help:
 	@echo "PTXDIST_VERSION_REQUIRED: $(PTXDIST_VERSION_REQUIRED)"
 	@echo ""
 	@echo "Available make targets:"
-	@echo "  all clean compile-ptxd distclean help mkdirs oldconfig"
-	@echo "  update-configs update-ptxd clean-ptxd"
+	@echo "  all help mkdirs oldconfig update-configs"
+	@echo "  clean distclean"
+	@echo "  update-ptxd compile-ptxd clean-ptxd"
 	@echo ""
 	@echo "Available build targets:"
 	@for i in $(sort $(BUILDS)); do echo $$i; done;
