@@ -51,6 +51,9 @@ $(STATEDIR)/%.build: | mkdirs $(STATEDIR)/ptxdist.build
 	$(NICE) $(PTXDIST) $(QUIET) $(ARG) --ptxconfig=$(2CONFIGFILE_$(*))
 	@if [ "$(strip $(filter images,$(ARG)))" = "images" ]; then touch "$@"; fi
 
+migrate:
+	@for cfg in $(CONFIGFILES) ; do $(PTXDIST) migrate --ptxconfig=$$cfg ; done
+
 oldconfig: $(OLDCONFIGS)
 
 %.oldconfig:
@@ -113,7 +116,7 @@ help:
 	@echo "PTXDIST_VERSION_REQUIRED: $$(./fixup_ptxconfigs.sh --ptxversion)"
 	@echo ""
 	@echo "Available make targets:"
-	@echo "  all clean compile-ptxd distclean help mkdirs oldconfig"
+	@echo "  all clean compile-ptxd distclean help mkdirs oldconfig migrate"
 	@echo "  update-configs update-ptxd clean-ptxd"
 	@echo ""
 	@echo "Available build targets:"
