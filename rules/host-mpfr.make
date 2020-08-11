@@ -24,7 +24,8 @@ HOST_MPFR_LICENSE	:= LGPL-3.0-or-later
 
 HOST_MPFR_URL		:= \
 	http://www.mpfr.org/mpfr-$(HOST_MPFR_VERSION)/$(HOST_MPFR).$(HOST_MPFR_SUFFIX) \
-	http://cross-lfs.org/files/packages/svn/$(HOST_MPFR).$(HOST_MPFR_SUFFIX)
+	http://cross-lfs.org/files/packages/svn/$(HOST_MPFR).$(HOST_MPFR_SUFFIX) \
+	https://ftp.gnu.org/gnu/mpfr/$(HOST_MPFR).$(HOST_MPFR_SUFFIX)
 
 # ----------------------------------------------------------------------------
 # Prepare
