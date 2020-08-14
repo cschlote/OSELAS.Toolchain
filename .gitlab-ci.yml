@@ -1,0 +1,145 @@
+
+image: docker:19.03.1
+
+# Pipeline to build a ptxdist build image
+
+variables:
+  # When using dind service we need to instruct docker, to talk with the
+  # daemon started inside of the service. The daemon is available with
+  # a network connection instead of the default /var/run/docker.sock socket.
+  #
+  # The 'docker' hostname is the alias of the service container as described at
+  # https://docs.gitlab.com/ee/ci/docker/using_docker_images.html#accessing-the-services
+  #
+  # Note that if you're using the Kubernetes executor, the variable should be set to
+  # tcp://localhost:2375 because of how the Kubernetes executor connects services
+  # to the job container
+  # DOCKER_HOST: tcp://localhost:2375
+  #
+  # For non-Kubernetes executors, we use tcp://docker:2375
+  DOCKER_HOST: tcp://docker:2375
+  # This will instruct Docker not to start over TLS.
+  DOCKER_TLS_CERTDIR: ""
+  # Docker configs
+  DOCKER_DRIVER: overlay2
+  GIT_SUBMODULE_STRATEGY: normal
+  # Test and latest image
+  CONTAINER_TEST_IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+  CONTAINER_RELEASE_IMAGE: $CI_REGISTRY_IMAGE:latest
+  # LDC - LLVM D Compiler to create
+  LDC_VERSION: v1.21.0
+
+services:
+  - docker:19.03.1-dind
+
+stages:
+  - setup
+  - lint
+  - build
+  - test
+  - release
+  - deploy
+
+before_script:
+  - command -v docker && docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY || true
+  #- docker info
+  - pwd
+  - echo "These are the ENV vars:"
+  - printenv | sort
+
+#-- Setup the OSELAS Compilers ---------------------------------------------
+
+build oselas tools:
+  image: gitlab.vahanus.net:5050/vahanus/private/container-ubuntu-dev:testing
+  tags:
+    - gitlabdocker
+  stage: setup
+  script:
+    - useradd -d /builds/${GITLAB_USER} -g users -M -N builder
+    - chown -R builder:users ..
+    - |
+      sudo -H -i -u builder sh -e -x << EOS
+      umask 0077
+      echo "Build OSELAS Toolchains"
+      image-info.sh
+      cd ${CI_PROJECT_DIR}
+      git fetch --all --tags
+      make -f build_all_v2.mk help
+      make -f build_all_v2.mk gstate/aarch64-v8a-linux-gnu-gcc-10.1.0-clang-10.0.0-glibc-2.31-binutils-2.34-kernel-5.6-sanitized.build gstate/arm-v7a-linux-gnueabi-gcc-10.1.0-clang-10.0.0-glibc-2.31-binutils-2.34-kernel-5.6-sanitized.build gstate/arm-v7a-linux-gnueabihf-gcc-10.1.0-clang-10.0.0-glibc-2.31-binutils-2.34-kernel-5.6-sanitized.build gstate/x86-64-unknown-linux-gnu-gcc-10.1.0-clang-10.0.0-glibc-2.31-binutils-2.34-kernel-5.6-sanitized.build
+      EOS
+  artifacts:
+    name: "$CI_JOB_STAGE-$CI_COMMIT_REF_SLUG"
+    #untracked: true
+    paths:
+      - dist/
+
+#-- Lint the scripts and Dockerfile ----------------------------------------
+
+lint-scripts:
+  tags:
+    - gitlabdocker
+  stage: lint
+  script:
+    - echo "linting $CI_COMMIT_REF_NAME / $CI_COMMIT_SHA ..."
+    - docker run --rm -i hadolint/hadolint < Dockerfile
+    - docker run -v "$PWD:/mnt" koalaman/shellcheck scripts/*.sh
+    - echo "Finished linting successfully."
+
+#-- Build the image --------------------------------------------------------
+
+build:
+  tags:
+    - gitlabdocker
+  stage: build
+  script:
+    - echo "building $CI_COMMIT_REF_NAME / $CI_COMMIT_SHA ..."
+    # Collect some data and write to a MANIFEST file
+    - ./scripts/create-manifest.sh
+    # Build the Image
+    - docker pull $CONTAINER_RELEASE_IMAGE || true
+    - docker build --cache-from $CONTAINER_RELEASE_IMAGE --pull -t $CONTAINER_TEST_IMAGE --build-arg LDC_VERSION .
+    - docker push $CONTAINER_TEST_IMAGE
+
+#-- Test the image ---------------------------------------------------------
+
+.test dind:
+  tags:
+    - gitlabdocker
+  stage: test
+  script:
+    - echo "testing $CI_COMMIT_REF_NAME / $CI_COMMIT_SHA ..."
+    - docker pull $CONTAINER_TEST_IMAGE
+    - docker run $CONTAINER_TEST_IMAGE image-info.sh
+
+test container:
+  image: $CONTAINER_TEST_IMAGE
+  tags:
+    - gitlabdocker
+  stage: test
+  script:
+    - echo "testing $CI_COMMIT_REF_NAME / $CI_COMMIT_SHA ..."
+    - image-info.sh
+
+#-- Release the image ------------------------------------------------------
+
+release image:
+  tags:
+    - gitlabdocker
+  stage: release
+  script:
+    - echo "releasing $CI_COMMIT_REF_NAME / $CI_COMMIT_SHA ..."
+    - docker pull $CONTAINER_TEST_IMAGE
+    - docker tag $CONTAINER_TEST_IMAGE $CONTAINER_RELEASE_IMAGE
+    - docker push $CONTAINER_RELEASE_IMAGE
+  only:
+    - master
+
+deploy:
+  tags:
+    - gitlabdocker
+  stage: deploy
+  when: manual
+  script:
+    - ./scripts/deploy.sh
+  only:
+    - master
