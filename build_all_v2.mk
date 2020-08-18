@@ -61,9 +61,17 @@ $(STATEDIR)/ptxdist.build:
 	@git submodule sync || (echo "Unable to sync GIT submodules"; false)
 	@git submodule update || (echo "Unable to update GIT submodules"; false)
 	@$(PTXDIST) --version 2&> /dev/null || ( \
-		echo "building ptxdist binary in subdir 'ptxdist'."; \
-		cd ptxdist; ./autogen.sh; ./configure --prefix=`pwd`; \
-		make; \
+		echo "building ptxdist binary in subdir 'ptxdist' (usr/local/)."; \
+		mkdir -p ptxinstall; \
+		cd ptxdist; ./autogen.sh; ./configure --prefix=/usr/local/; \
+		make; DESTDIR=../ptxinstall make install; \
+		cd .. ; \
+		tar cJf dist/ptxdist.tar.xz -C ptxinstall . ; \
+		rm ptxinstall -rf )
+	@$(PTXDIST) --version 2&> /dev/null || ( \
+		echo "building ptxdist binary in subdir 'ptxdist' (local work dir)."; \
+		cd ptxdist; ./autogen.sh; ./configure --prefix=$$(pwd); \
+		make clean ; make; \
 		cd ..; )
 	@@$(PTXDIST) --version 2&> /dev/null || (echo "Unable to build ptxdist."; false)
 	@@$(PTXDIST) --version 2&> $@
