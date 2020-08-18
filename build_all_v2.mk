@@ -61,6 +61,7 @@ oldconfig: $(OLDCONFIGS)
 
 .PHONY: $(STATEDIR)/ptxdist.build
 $(STATEDIR)/ptxdist.build:
+	@git submodule sync || (echo "Unable to sync GIT submodules"; false)
 	@git submodule update || (echo "Unable to update GIT submodules"; false)
 	@$(PTXDIST) --version 2&> /dev/null || ( \
 		echo "building ptxdist binary in subdir 'ptxdist'."; \
