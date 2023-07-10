@@ -2,6 +2,14 @@
 
 ARGS_FULL=("${@}")
 
+# version infos
+CONFIG_VERSION="2023.07.0"
+RELEASE_VERSION=${PTXCONF_PROJECT##*/}
+if test -n $RELEASE_VERSION ; then
+#    RELEASE_VERSION="$(git describe --always)"
+    RELEASE_VERSION="OSELAS.Toolchain-2020.XX.0"
+fi
+
 get_replace()
 {
     local var="${1}"
@@ -18,10 +26,9 @@ fixup()
 {
     local config="${1}"
 
-    # version
-    PTXCONF_CONFIGFILE_VERSION="2023.07.0"
-    PTXCONF_PROJECT="OSELAS.Toolchain-2023.07.0"
-    PTXCONF_PROJECT="${PTXCONF_PROJECT##*/}"
+    # versions
+    PTXCONF_CONFIGFILE_VERSION=$CONFIG_VERSION
+    PTXCONF_PROJECT=$RELEASE_VERSION
 
     # defaults
     PTXCONF_PREFIX="/opt"
@@ -510,6 +517,16 @@ while [ ${#} -ne 0 ]; do
     shift
 
     case "${arg}" in
+	--ptxversion)
+	    action=ptxversion
+	    action_args="${1}"
+	    shift
+	    ;;
+	--relversion)
+	    action=relversion
+	    action_args="${1}"
+	    shift
+	    ;;
 	--update)
 	    action=update
 	    action_args="${1}"
@@ -521,6 +538,17 @@ while [ ${#} -ne 0 ]; do
     esac
 done
 
+ptxversion()
+{
+	echo $CONFIG_VERSION
+	exit 0
+}
+
+relversion()
+{
+	echo $RELEASE_VERSION
+	exit 0
+}
 
 set --  "${ARGS_SECOND[@]}"
 
