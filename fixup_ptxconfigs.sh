@@ -7,7 +7,7 @@ CONFIG_VERSION="2023.07.0"
 RELEASE_VERSION=${PTXCONF_PROJECT##*/}
 if test -n $RELEASE_VERSION ; then
 #    RELEASE_VERSION="$(git describe --always)"
-    RELEASE_VERSION="OSELAS.Toolchain-2020.XX.0"
+    RELEASE_VERSION="OSELAS.Toolchain-2023.07.0"
 fi
 
 get_replace()
